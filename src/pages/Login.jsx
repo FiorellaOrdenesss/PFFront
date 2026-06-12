@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { login } from "../services/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
@@ -43,6 +43,11 @@ function Login() {
       </form>
 
       {error && <p className="error">{error}</p>}
+
+      {/* Enlace hacia Register */}
+      <p>
+        ¿No estás registrado? <Link to="/register">Crea tu cuenta aquí</Link>
+      </p>
     </div>
   );
 }

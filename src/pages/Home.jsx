@@ -224,12 +224,14 @@ function Home() {
                 <span className="estado">
                   {b.disponibilidad ? "Activo" : "Inactivo"}
                 </span>
-                <button onClick={() => handleUpdateBeneficio(b.id)}>
-                  ✏️ Editar
-                </button>
-                <button onClick={() => handleDeleteBeneficio(b.id)}>
-                  🗑️ Eliminar
-                </button>
+                <div>
+                  <button onClick={() => handleUpdateBeneficio(b.id)}>
+                    ✏️ Editar
+                  </button>
+                  <button onClick={() => handleDeleteBeneficio(b.id)}>
+                    🗑️ Eliminar
+                  </button>
+                </div>
               </div>
             ))
           )}

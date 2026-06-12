@@ -8,6 +8,7 @@ import Turnos from "../pages/Turnos";
 import Mensajes from "../pages/Mensajes";
 import Perfil from "../pages/Perfil";
 import Configuracion from "../pages/Configuracion";
+import Register from "../pages/Register";
 
 function AppRoutes() {
   return (
@@ -22,6 +23,7 @@ function AppRoutes() {
         <Route path="/mensajes" element={<Mensajes />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/configuracion" element={<Configuracion />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
