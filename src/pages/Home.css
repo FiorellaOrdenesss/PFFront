@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --primary: #6366F1;
-  --secondary: #8B5CF6;
-  --success: #22C55E;
-  --background: #F8FAFC;
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --success: #22c55e;
+  --background: #f8fafc;
 }
 
 * {
@@ -23,7 +23,6 @@ body {
   min-height: 100vh;
 }
 
-
 .sidebar {
   width: 340px;
   min-width: 340px;
@@ -32,8 +31,6 @@ body {
   border-right: 1px solid #e5e7eb;
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.08);
 }
-
-
 
 .logo {
   text-align: center;
@@ -56,13 +53,8 @@ body {
   margin-top: 15px;
   margin-bottom: 8px;
 
-  background: linear-gradient(
-    90deg,
-    #6366F1,
-    #EC4899,
-    #22C55E
-  );
-
+  background: linear-gradient(90deg, #6366f1, #ec4899, #22c55e);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -72,8 +64,6 @@ body {
   font-size: 16px;
   margin-top: 10px;
 }
-
-
 
 .menu {
   display: flex;
@@ -98,16 +88,10 @@ body {
 }
 
 .active {
-  background: linear-gradient(
-    135deg,
-    #6366F1,
-    #8B5CF6
-  ) !important;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
   color: white;
   box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
 }
-
-
 
 .accesibilidad {
   margin-top: 30px;
@@ -148,18 +132,13 @@ body {
   width: 100%;
   margin-top: 15px;
   border: none;
-  background: linear-gradient(
-    135deg,
-    #6366F1,
-    #8B5CF6
-  );
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
   padding: 12px;
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
 }
-
 
 .contenido {
   flex: 1;
@@ -232,18 +211,30 @@ body {
   margin-bottom: 20px;
 }
 
-.beneficio {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid #eee;
-}
-
 .estado {
   background: #dcfce7;
   color: #16a34a;
   padding: 6px 14px;
   border-radius: 999px;
   font-weight: 500;
+}
+.actividad,
+.beneficio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.actividad-info,
+.beneficio-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.actividad-actions button,
+.beneficio-actions button {
+  margin-left: 8px;
 }
