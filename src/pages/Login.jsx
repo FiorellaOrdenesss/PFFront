@@ -12,8 +12,9 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
-      navigate("/"); // redirige a Home si el login es exitoso
+      const res = await login(email, password);
+      localStorage.setItem("token", res.token); // 🔹 guarda el token
+      navigate("/home"); // 🔹 redirige a Home
     } catch (err) {
       setError("Credenciales inválidas o error en el servidor");
     }
@@ -44,7 +45,6 @@ function Login() {
 
       {error && <p className="error">{error}</p>}
 
-      {/* Enlace hacia Register */}
       <p>
         ¿No estás registrado? <Link to="/register">Crea tu cuenta aquí</Link>
       </p>

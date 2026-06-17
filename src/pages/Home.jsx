@@ -111,6 +111,13 @@ function Home() {
             🏠 Inicio
           </NavLink>
           <NavLink
+            to="/productos"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            🛒 Productos
+          </NavLink>
+
+          <NavLink
             to="/beneficios"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
