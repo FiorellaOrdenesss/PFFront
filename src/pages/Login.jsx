@@ -13,8 +13,8 @@ function Login() {
     e.preventDefault();
     try {
       const res = await login(email, password);
-      localStorage.setItem("token", res.token); // 🔹 guarda el token
-      navigate("/home"); // 🔹 redirige a Home
+      localStorage.setItem("token", res.token);
+      navigate("/home");
     } catch (err) {
       setError("Credenciales inválidas o error en el servidor");
     }

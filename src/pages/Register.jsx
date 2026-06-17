@@ -1,6 +1,6 @@
-// pages/ Register.jsx
+// pages/Register.jsx
 import { useState } from "react";
-import { registerUsuario } from "../services/usuarios";
+import { registerUsuario } from "../services/usuarios"; // 👈 mismo nombre
 import { useNavigate } from "react-router-dom";
 import "./pages.css";
 
@@ -13,10 +13,11 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser({ nombre, email, password });
+      await registerUsuario({ nombre, email, password }); // 👈 corregido
       alert("Usuario registrado con éxito. Ahora puedes iniciar sesión.");
-      navigate("/login"); // redirige al login
+      navigate("/login");
     } catch (err) {
+      console.error("Error al registrarte:", err); // 👈 log para depurar
       alert("Error al registrarte");
     }
   };
