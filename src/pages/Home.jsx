@@ -221,7 +221,6 @@ function Home() {
 
         <div className="section">
           <h2>Beneficios destacados</h2>
-          <button onClick={handleAddBeneficio}>➕ Agregar beneficio</button>
           {beneficios.length === 0 ? (
             <p>No hay beneficios disponibles</p>
           ) : (
@@ -239,7 +238,6 @@ function Home() {
 
         <div className="section">
           <h2>Actividades</h2>
-          <button onClick={handleAddActividad}>➕ Agregar actividad</button>
           {actividades.length === 0 ? (
             <p>No hay actividades disponibles</p>
           ) : (

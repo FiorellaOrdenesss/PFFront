@@ -1,14 +1,24 @@
+// src/pages/Productos.jsx
 import { useEffect, useState } from "react";
-import {
-  getProductos,
-  createProducto,
-  updateProducto,
-  deleteProducto,
-} from "../services/productos";
-import "./Productos.css";
+import { getProductos } from "../services/productos";
+import NavbarProductos from "../components/NavbarProductos";
+import ModalCarrito from "../components/ModalCarrito";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Productos() {
   const [productos, setProductos] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [carrito, setCarrito] = useState([]);
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+  useEffect(() => {
+    const savedCarrito = localStorage.getItem("carrito");
+    if (savedCarrito) setCarrito(JSON.parse(savedCarrito));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -19,72 +29,88 @@ function Productos() {
     }
   }, []);
 
-  const handleAddProducto = async () => {
-    const token = localStorage.getItem("token");
-    const nuevo = {
-      nombre: prompt("Nombre del producto:"),
-      descripcion: prompt("Descripción:"),
-      precio: parseFloat(prompt("Precio:")),
-      stock: parseInt(prompt("Stock disponible:"), 10),
-    };
-    const res = await createProducto(nuevo, token);
-    setProductos([...productos, res]);
+  const productosFiltrados = productos.filter((p) =>
+    p.nombre.toLowerCase().includes(busqueda.toLowerCase()),
+  );
+
+  const handleAgregarCarrito = (producto) => {
+    const existe = carrito.find((item) => item.id === producto.id);
+    if (existe) {
+      setCarrito(
+        carrito.map((item) =>
+          item.id === producto.id
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item,
+        ),
+      );
+    } else {
+      setCarrito([...carrito, { ...producto, cantidad: 1 }]);
+    }
   };
 
-  const handleUpdateProducto = async (id) => {
-    const token = localStorage.getItem("token");
-    const actualizado = { nombre: prompt("Nuevo nombre:") };
-    const res = await updateProducto(id, actualizado, token);
-    setProductos(productos.map((p) => (p.id === id ? res : p)));
+  const handleEliminarCarrito = (id) => {
+    setCarrito(carrito.filter((p) => p.id !== id));
   };
 
-  const handleDeleteProducto = async (id) => {
-    const token = localStorage.getItem("token");
-    await deleteProducto(id, token);
-    setProductos(productos.filter((p) => p.id !== id));
+  const handleReducirCantidad = (id) => {
+    setCarrito(
+      carrito
+        .map((item) =>
+          item.id === id ? { ...item, cantidad: item.cantidad - 1 } : item,
+        )
+        .filter((item) => item.cantidad > 0),
+    );
+  };
+
+  const handleFinalizarCompra = () => {
+    alert("Compra realizada con éxito");
+    setCarrito([]);
+    localStorage.removeItem("carrito");
+    setMostrarModal(false);
   };
 
   return (
-    <div className="productos-container">
-      <header className="productos-header">
-        <h1>🛒 Venta de productos</h1>
-        <p>Explora nuestra selección exclusiva con estilo y accesibilidad</p>
-        <button className="btn-add" onClick={handleAddProducto}>
-          ➕ Agregar producto
-        </button>
-      </header>
+    <div className="container my-4">
+      <NavbarProductos
+        busqueda={busqueda}
+        setBusqueda={setBusqueda}
+        carrito={carrito}
+        onCarritoClick={() => setMostrarModal(true)}
+      />
 
-      {productos.length === 0 ? (
-        <p className="no-productos">No hay productos disponibles</p>
+      {productosFiltrados.length === 0 ? (
+        <p className="text-muted mt-4">No hay productos disponibles</p>
       ) : (
-        <div className="productos-grid">
-          {productos.map((p) => (
-            <div key={p.id} className="producto-card">
-              <div className="producto-info">
-                <h3>{p.nombre}</h3>
-                <p>{p.descripcion}</p>
-                <div className="producto-meta">
-                  <span className="precio">💲 {p.precio}</span>
-                  <span className="stock">Stock: {p.stock}</span>
+        <div className="row mt-4">
+          {productosFiltrados.map((p) => (
+            <div key={p.id} className="col-md-4 mb-4">
+              <div className="card h-100 shadow-sm">
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title">{p.nombre}</h5>
+                  <p className="card-text">{p.descripcion}</p>
+                  <p className="fw-bold text-success">${p.precio}</p>
+                  <button
+                    className="btn btn-primary mt-auto"
+                    onClick={() => handleAgregarCarrito(p)}
+                  >
+                    Agregar al carrito
+                  </button>
                 </div>
-              </div>
-              <div className="producto-actions">
-                <button
-                  className="btn-edit"
-                  onClick={() => handleUpdateProducto(p.id)}
-                >
-                  ✏️ Editar
-                </button>
-                <button
-                  className="btn-delete"
-                  onClick={() => handleDeleteProducto(p.id)}
-                >
-                  🗑️ Eliminar
-                </button>
               </div>
             </div>
           ))}
         </div>
+      )}
+
+      {mostrarModal && (
+        <ModalCarrito
+          carrito={carrito}
+          onClose={() => setMostrarModal(false)}
+          onAgregar={handleAgregarCarrito}
+          onReducir={handleReducirCantidad}
+          onEliminar={handleEliminarCarrito}
+          onFinalizar={handleFinalizarCompra}
+        />
       )}
     </div>
   );

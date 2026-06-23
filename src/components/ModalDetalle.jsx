@@ -1,5 +1,4 @@
 // src/components/ModalDetalle.jsx
-import "./ModalDetalle.css";
 
 function ModalDetalle({ item, onClose }) {
   if (!item) return null;
@@ -7,7 +6,9 @@ function ModalDetalle({ item, onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>{item.titulo || item.nombre}</h2>
+        <div>
+          <h2>{item.titulo || item.nombre}</h2>
+        </div>
         <p>{item.descripcion}</p>
         {item.disponibilidad !== undefined && (
           <p>
