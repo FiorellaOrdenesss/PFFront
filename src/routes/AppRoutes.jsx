@@ -10,7 +10,7 @@ import Perfil from "../pages/Perfil";
 import Configuracion from "../pages/Configuracion";
 import Register from "../pages/Register";
 import Productos from "../pages/Productos";
-
+import Administrador from "../pages/Administrador";
 function AppRoutes() {
   const token = localStorage.getItem("token");
 
@@ -55,6 +55,10 @@ function AppRoutes() {
         <Route
           path="/productos"
           element={token ? <Productos /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/administrador"
+          element={token ? <Administrador /> : <Navigate to="/login" />}
         />
       </Routes>
     </BrowserRouter>
