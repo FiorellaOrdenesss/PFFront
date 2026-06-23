@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* ACCESIBILIDAD */
+
+.texto-grande {
+  font-size: 18px;
+}
+
+.texto-grande h1 {
+  font-size: 2.5rem !important;
+}
+
+.texto-grande h2 {
+  font-size: 2rem !important;
+}
+
+.texto-grande p,
+.texto-grande span,
+.texto-grande label,
+.texto-grande button,
+.texto-grande input,
+.texto-grande select {
+  font-size: 1.1rem !important;
+}
+
+.alto-contraste {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.alto-contraste * {
+  color: #fff !important;
+}
