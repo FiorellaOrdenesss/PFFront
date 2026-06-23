@@ -226,3 +226,11 @@ body {
 .actividad button:hover {
   background: #dbeafe;
 }
+.clickable {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+.clickable:hover {
+  background-color: #f9f9f9;
+}

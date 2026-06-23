@@ -16,6 +16,7 @@ import {
 import { NavLink } from "react-router-dom";
 import "./Home.css";
 import logo from "../assets/logo-inclusivo.png";
+import ModalDetalle from "../components/ModalDetalle";
 
 function Home() {
   const [beneficios, setBeneficios] = useState([]);
@@ -218,7 +219,6 @@ function Home() {
           </div>
         </div>
 
-        {/* BENEFICIOS */}
         <div className="section">
           <h2>Beneficios destacados</h2>
           <button onClick={handleAddBeneficio}>➕ Agregar beneficio</button>
@@ -226,25 +226,17 @@ function Home() {
             <p>No hay beneficios disponibles</p>
           ) : (
             beneficios.map((b) => (
-              <div key={b.id} className="beneficio">
+              <div
+                key={b.id}
+                className="beneficio clickable"
+                onClick={() => setSelectedBeneficio(b)}
+              >
                 <span>{b.titulo}</span>
-                <span className="estado">
-                  {b.disponibilidad ? "Activo" : "Inactivo"}
-                </span>
-                <div>
-                  <button onClick={() => handleUpdateBeneficio(b.id)}>
-                    ✏️ Editar
-                  </button>
-                  <button onClick={() => handleDeleteBeneficio(b.id)}>
-                    🗑️ Eliminar
-                  </button>
-                </div>
               </div>
             ))
           )}
         </div>
 
-        {/* ACTIVIDADES */}
         <div className="section">
           <h2>Actividades</h2>
           <button onClick={handleAddActividad}>➕ Agregar actividad</button>
@@ -252,22 +244,24 @@ function Home() {
             <p>No hay actividades disponibles</p>
           ) : (
             actividades.map((a) => (
-              <div key={a.id} className="actividad">
-                <div className="actividad-info">
-                  <span>{a.nombre}</span>
-                </div>
-                <div className="actividad-actions ">
-                  <button onClick={() => handleUpdateActividad(a.id)}>
-                    ✏️ Editar
-                  </button>
-                  <button onClick={() => handleDeleteActividad(a.id)}>
-                    🗑️ Eliminar
-                  </button>
-                </div>
+              <div
+                key={a.id}
+                className="actividad clickable"
+                onClick={() => setSelectedActividad(a)}
+              >
+                <span>{a.nombre}</span>
               </div>
             ))
           )}
         </div>
+        <ModalDetalle
+          item={selectedBeneficio}
+          onClose={() => setSelectedBeneficio(null)}
+        />
+        <ModalDetalle
+          item={selectedActividad}
+          onClose={() => setSelectedActividad(null)}
+        />
       </main>
     </div>
   );
