@@ -1,6 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 :root {
   --primary: #6366f1;
@@ -24,8 +22,6 @@ body {
   display: flex;
   min-height: 100vh;
 }
-
-
 
 .sidebar {
   width: 420px;
@@ -55,9 +51,6 @@ body {
   margin-top: 12px;
 }
 
-
-
-
 .menu {
   display: flex;
   flex-direction: column;
@@ -76,38 +69,15 @@ body {
   align-items: center;
 }
 
-.menu a {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.menu-icon {
-  font-size: 20px;
-  color: #6366f1;
-  transition: all 0.3s ease;
-}
-
-.active .menu-icon {
-  color: white;
-}
-
-.menu a:hover .menu-icon {
-  transform: scale(1.15);
+.menu a:hover {
+  background: #eef2ff;
 }
 
 .active {
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #8b5cf6
-  ) !important;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
   color: white !important;
   box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
 }
-
-
-
 
 .accesibilidad {
   margin-top: 30px;
@@ -136,14 +106,8 @@ body {
 }
 
 .selected {
-
-  background: #5b5ce2;
-  color: #ffffff !important;
-  font-weight: bold;
-
   background: var(--primary);
   color: white;
-
 }
 
 .accesibilidad label {
@@ -156,24 +120,13 @@ body {
   width: 100%;
   margin-top: 15px;
   border: none;
-
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #8b5cf6
-  );
-
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
-
   color: white;
   padding: 12px;
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
 }
-
-
-
 
 .contenido {
   flex: 1;
@@ -200,11 +153,7 @@ body {
   padding: 12px 20px;
   border-radius: 12px;
   cursor: pointer;
-
-  box-shadow: 0 2px 10px rgba(0,0,0,.05);
-
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-
 }
 
 .cards {
@@ -219,12 +168,11 @@ body {
   padding: 25px;
   border-radius: 20px;
   box-shadow:
-
-    0 2px 10px rgba(0,0,0,.05),
-    0 10px 20px rgba(99,102,241,.08);
-  transition: .3s;
-
+    0 2px 10px rgba(0, 0, 0, 0.05),
+    0 10px 20px rgba(99, 102, 241, 0.08);
+  transition: 0.3s;
 }
+
 .card:hover {
   transform: translateY(-4px);
 }
@@ -235,20 +183,12 @@ body {
   margin-bottom: 10px;
 }
 
-
-
-
-
 .section {
   background: white;
   margin-top: 35px;
   padding: 25px;
   border-radius: 20px;
-
-  box-shadow: 0 2px 10px rgba(0,0,0,.04);
-
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-
 }
 
 .section h2 {
@@ -286,111 +226,6 @@ body {
 .actividad button:hover {
   background: #dbeafe;
 }
-
-
-.alto-contraste {
-  background: black !important;
-  color: yellow !important;
-}
-
-.alto-contraste .card,
-.alto-contraste .section,
-.alto-contraste .sidebar,
-.alto-contraste .accesibilidad {
-  background: #111 !important;
-  color: yellow !important;
-  border: 2px solid yellow !important;
-}
-
-.alto-contraste button {
-  background: yellow !important;
-  color: black !important;
-}
-
-.texto button {
-  min-width: 60px;
-  height: 42px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background: white;
-  color: #111827;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.selected {
-  background: #6366f1 !important;
-  color: #ffffff !important;
-  font-weight: 700;
-  border: 2px solid #4f46e5;
-}
-
-.accesibilidad-toggle {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.toggle-btn {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background: white;
-  color: #111827;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.toggle-btn:hover {
-  background: #eef2ff;
-}
-
-.toggle-btn.activo {
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #8b5cf6
-  );
-  color: white;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-}
-
-.toggle-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: none;
-  border-radius: 16px;
-  background: white;
-  color: #111827;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.toggle-btn svg {
-  font-size: 18px;
-}
-
-.toggle-btn:hover {
-  background: #eef2ff;
-}
-
-.toggle-btn.activo {
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #8b5cf6
-  );
-  color: white;
-}
-
 .clickable {
   cursor: pointer;
   padding: 0.5rem;
@@ -398,4 +233,122 @@ body {
 }
 .clickable:hover {
   background-color: #f9f9f9;
+}
+
+.productos-container {
+  padding: 2rem;
+}
+
+.productos-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.productos-header h1 {
+  font-size: 2.5rem;
+  color: #4a148c;
+}
+
+.productos-header p {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.btn-add {
+  margin-top: 1rem;
+  background-color: #4a148c;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-add:hover {
+  background-color: #6a1b9a;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.producto-card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.producto-info h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.producto-info p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.producto-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+  font-weight: bold;
+}
+
+.precio {
+  color: #2e7d32;
+}
+
+.stock {
+  color: #0277bd;
+}
+
+.producto-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 1;
+  margin: 0 5px;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-edit {
+  background-color: #ffeb3b;
+}
+
+.btn-edit:hover {
+  background-color: #fdd835;
+}
+
+.btn-delete {
+  background-color: #e53935;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #c62828;
+}
+
+.no-productos {
+  text-align: center;
+  color: #999;
+  font-style: italic;
 }

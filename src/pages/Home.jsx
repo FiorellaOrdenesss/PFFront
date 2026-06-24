@@ -39,7 +39,7 @@ function Home() {
   const [beneficios, setBeneficios] = useState([]);
   const [actividades, setActividades] = useState([]);
   const [usuario, setUsuario] = useState(null);
- const [fontSize, setFontSize] = useState(
+  const [fontSize, setFontSize] = useState(
   Number(localStorage.getItem("fontSize")) || 16
 );
 
@@ -55,6 +55,8 @@ const [lecturaActiva, setLecturaActiva] = useState(
   localStorage.getItem("lecturaActiva") === "true"
 );
   const [modoAccesible, setModoAccesible] = useState(false);
+
+
   const [selectedBeneficio, setSelectedBeneficio] = useState(null);
   const [selectedActividad, setSelectedActividad] = useState(null);
 
@@ -129,6 +131,7 @@ useEffect(() => {
       };
     });
 }, [lecturaActiva]);
+
 
 
 
@@ -370,48 +373,41 @@ useEffect(() => {
             <p>No hay beneficios disponibles</p>
           ) : (
             beneficios.map((b) => (
-              <div key={b.id} className="beneficio">
+              <div
+                key={b.id}
+                className="beneficio clickable"
+                onClick={() => setSelectedBeneficio(b)}
+              >
                 <span>{b.titulo}</span>
-                <span className="estado">
-                  {b.disponibilidad ? "Activo" : "Inactivo"}
-                </span>
-                <div>
-                  <button onClick={() => handleUpdateBeneficio(b.id)}>
-                    ✏️ Editar
-                  </button>
-                  <button onClick={() => handleDeleteBeneficio(b.id)}>
-                    🗑️ Eliminar
-                  </button>
-                </div>
               </div>
             ))
           )}
         </div>
 
-        {/* ACTIVIDADES */}
         <div className="section">
           <h2>Actividades</h2>
-          <button onClick={handleAddActividad}>➕ Agregar actividad</button>
           {actividades.length === 0 ? (
             <p>No hay actividades disponibles</p>
           ) : (
             actividades.map((a) => (
-              <div key={a.id} className="actividad">
-                <div className="actividad-info">
-                  <span>{a.nombre}</span>
-                </div>
-                <div className="actividad-actions ">
-                  <button onClick={() => handleUpdateActividad(a.id)}>
-                    ✏️ Editar
-                  </button>
-                  <button onClick={() => handleDeleteActividad(a.id)}>
-                    🗑️ Eliminar
-                  </button>
-                </div>
+              <div
+                key={a.id}
+                className="actividad clickable"
+                onClick={() => setSelectedActividad(a)}
+              >
+                <span>{a.nombre}</span>
               </div>
             ))
           )}
         </div>
+        <ModalDetalle
+          item={selectedBeneficio}
+          onClose={() => setSelectedBeneficio(null)}
+        />
+        <ModalDetalle
+          item={selectedActividad}
+          onClose={() => setSelectedActividad(null)}
+        />
       </main>
     </div>
   );

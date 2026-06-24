@@ -13,10 +13,11 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser({ nombre, email, password });
+      await registerUsuario({ nombre, email, password }); 
       alert("Usuario registrado con éxito. Ahora puedes iniciar sesión.");
-      navigate("/login"); // redirige al login
+      navigate("/login");
     } catch (err) {
+      console.error("Error al registrarte:", err);
       alert("Error al registrarte");
     }
   };
