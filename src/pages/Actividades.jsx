@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import "./pages.css";
+import UserBanner from "../components/UserBanner";
 
 function Actividades() {
   const [actividades, setActividades] = useState([]);
@@ -22,6 +23,7 @@ function Actividades() {
 
   return (
     <div className="page-container">
+      <UserBanner />
       <h2>Actividades</h2>
       <ul>
         {actividades.map((a) => (

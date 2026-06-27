@@ -1,6 +1,6 @@
 // src/pages/Productos.jsx
 import { useEffect, useState } from "react";
-import { getProductos } from "../services/productos";
+import { getProductos, updateProducto } from "../services/productos";
 import NavbarProductos from "../components/NavbarProductos";
 import ModalCarrito from "../components/ModalCarrito";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -61,12 +61,45 @@ function Productos() {
         .filter((item) => item.cantidad > 0),
     );
   };
+  const handleFinalizarCompra = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      let montoCompra = 0;
+      let productosVendidosCompra = 0;
 
-  const handleFinalizarCompra = () => {
-    alert("Compra realizada con éxito");
-    setCarrito([]);
-    localStorage.removeItem("carrito");
-    setMostrarModal(false);
+      for (const item of carrito) {
+        await updateProducto(
+          item.id,
+          { ventas: (item.ventas || 0) + item.cantidad },
+          token,
+        );
+        montoCompra += item.precio * item.cantidad;
+        productosVendidosCompra += item.cantidad; // sumamos cantidades
+      }
+
+      const comprasPrevias = JSON.parse(localStorage.getItem("compras")) || {
+        cantidad: 0,
+        totalMonto: 0,
+        productosVendidos: 0,
+      };
+
+      const nuevasCompras = {
+        cantidad: comprasPrevias.cantidad + 1,
+        totalMonto: comprasPrevias.totalMonto + montoCompra,
+        productosVendidos:
+          comprasPrevias.productosVendidos + productosVendidosCompra,
+      };
+
+      localStorage.setItem("compras", JSON.stringify(nuevasCompras));
+
+      alert(`Compra realizada con éxito ✅\nMonto: $${montoCompra}`);
+      setCarrito([]);
+      localStorage.removeItem("carrito");
+      setMostrarModal(false);
+    } catch (error) {
+      console.error("Error al registrar la compra:", error);
+      alert("Hubo un problema al registrar la compra");
+    }
   };
 
   return (
