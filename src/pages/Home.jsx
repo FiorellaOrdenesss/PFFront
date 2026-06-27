@@ -34,6 +34,7 @@ import {
 import { NavLink } from "react-router-dom";
 import "./Home.css";
 import logo from "../assets/logo-inclusivo.png";
+import ModalDetalle from "../components/ModalDetalle";
 
 function Home() {
   const [beneficios, setBeneficios] = useState([]);
@@ -234,6 +235,11 @@ useEffect(() => {
   <NavLink to="/beneficios">
     <FaHeart className="menu-icon" />
     <span>Beneficios</span>
+  </NavLink>
+
+  <NavLink to="/productos">
+    <FaHeart className="menu-icon" />
+    <span>Productos</span>
   </NavLink>
 
   <NavLink to="/actividades">
