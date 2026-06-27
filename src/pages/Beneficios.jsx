@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import "./pages.css";
+import UserBanner from "../components/UserBanner";
 
 function Beneficios() {
   const [beneficios, setBeneficios] = useState([]);
@@ -22,6 +23,7 @@ function Beneficios() {
 
   return (
     <div className="page-container">
+      <UserBanner />
       <h2>Beneficios disponibles</h2>
       <ul>
         {beneficios.map((b) => (

@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function NavbarProductos({ busqueda, setBusqueda, carrito, onCarritoClick }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm">
-      <a className="navbar-brand fw-bold text-primary" href="#">
+      <a className="navbar-brand fw-bold text-primary" href="/productos">
         Productos
       </a>
       <form className="d-flex ms-auto">

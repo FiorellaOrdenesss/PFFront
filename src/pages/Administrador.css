@@ -1,0 +1,103 @@
+.administrador-page {
+  background-color: #f5f5f9;
+  min-height: 100vh;
+}
+
+.administrador-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+.administrador-hero {
+  margin-bottom: 32px;
+}
+
+.administrador-hero h2 {
+  font-size: clamp(2rem, 2.5vw, 2.6rem);
+  margin-bottom: 0.5rem;
+}
+
+.metric-cards {
+  gap: 20px;
+}
+
+.metric-card {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: white;
+  padding: 24px 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card h6 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+
+.metric-card h4 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.metric-card-usuarios {
+  background: linear-gradient(135deg, #6343ff, #7c5cff);
+}
+
+.metric-card-activos {
+  background: linear-gradient(135deg, #25b5ff, #1d88d3);
+}
+
+.metric-card-sinstock {
+  background: linear-gradient(135deg, #ff4eb8, #d62e9d);
+}
+
+.metric-card-bajostock {
+  background: linear-gradient(135deg, #ffb52e, #f27024);
+}
+
+.metric-card-vendidos {
+  background: linear-gradient(135deg, #1d7a0c, #10b981);
+}
+
+.metric-card-ventas {
+  background: linear-gradient(135deg, #0f4c87, #2563eb);
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+}
+
+.table-wrapper h3 {
+  margin-bottom: 24px;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.metric-number {
+  font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+}
+
+@media (max-width: 768px) {
+  .metric-card {
+    min-height: 140px;
+    padding: 18px 12px;
+  }
+
+  .table-wrapper {
+    padding: 18px;
+  }
+}

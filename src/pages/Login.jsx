@@ -13,7 +13,6 @@ function Login() {
     e.preventDefault();
     try {
       const res = await login(email, password);
-      localStorage.setItem("token", res.token);
       navigate("/home");
     } catch (err) {
       setError("Credenciales inválidas o error en el servidor");

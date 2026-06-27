@@ -9,22 +9,57 @@
 
 .page-container {
   background: var(--background);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  min-height: calc(100vh - 80px);
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.05);
+  min-height: calc(100vh - 5rem);
+  color: #0f172a;
 }
 
 .page-container h2 {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.25rem;
 }
 
-.page-container p {
-  color: #64748b;
-  font-size: 16px;
+.page-container p,
+.page-container ul,
+.page-container li {
+  color: #1f2937;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.page-container ul {
+  padding-left: 1.25rem;
+  margin-top: 1rem;
+}
+
+.page-container li {
+  margin-bottom: 0.9rem;
+}
+
+.page-container a {
+  color: #3730a3;
+  text-decoration: none;
+}
+
+.page-container a:hover {
+  text-decoration: underline;
+}
+
+body.alto-contraste .page-container {
+  background: #000 !important;
+  color: #fffb7d !important;
+  border-color: #fffb7d !important;
+}
+
+body.alto-contraste .page-container p,
+body.alto-contraste .page-container ul,
+body.alto-contraste .page-container li,
+body.alto-contraste .page-container a {
+  color: #fffb7d !important;
 }
 
 .list {
@@ -68,6 +103,20 @@
 }
 
 .card h3 {
-  color: var(--primary);
-  margin-bottom: 10px;
+  color: #0f172a;
+  margin-bottom: 0.6rem;
+}
+
+body.alto-contraste .page-container,
+body.alto-contraste .list,
+body.alto-contraste .card {
+  background: #000 !important;
+  color: #fffb7d !important;
+  border-color: #fffb7d !important;
+}
+
+body.alto-contraste .page-container p,
+body.alto-contraste .list-item strong,
+body.alto-contraste .card h3 {
+  color: #fffb7d !important;
 }

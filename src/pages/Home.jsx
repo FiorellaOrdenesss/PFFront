@@ -23,42 +23,41 @@ import {
   FaComments,
   FaUser,
   FaCog,
+  FaShoppingCart,
 } from "react-icons/fa";
 
-import {
-  BsEyeFill,
-  BsFileTextFill,
-  BsVolumeUpFill,
-} from "react-icons/bs";
+import { BsEyeFill, BsFileTextFill, BsVolumeUpFill } from "react-icons/bs";
 
 import { NavLink } from "react-router-dom";
 import "./Home.css";
 import logo from "../assets/logo-inclusivo.png";
+import ModalDetalle from "../components/ModalDetalle";
+import UserBanner from "../components/UserBanner";
 
 function Home() {
   const [beneficios, setBeneficios] = useState([]);
   const [actividades, setActividades] = useState([]);
   const [usuario, setUsuario] = useState(null);
   const [fontSize, setFontSize] = useState(
-  Number(localStorage.getItem("fontSize")) || 16
-);
+    Number(localStorage.getItem("fontSize")) || 16,
+  );
 
-const [altoContraste, setAltoContraste] = useState(
-  localStorage.getItem("altoContraste") === "true"
-);
+  const [altoContraste, setAltoContraste] = useState(
+    localStorage.getItem("altoContraste") === "true",
+  );
 
-const [lenguajeClaro, setLenguajeClaro] = useState(
-  localStorage.getItem("lenguajeClaro") === "true"
-);
+  const [lenguajeClaro, setLenguajeClaro] = useState(
+    localStorage.getItem("lenguajeClaro") === "true",
+  );
 
-const [lecturaActiva, setLecturaActiva] = useState(
-  localStorage.getItem("lecturaActiva") === "true"
-);
+  const [lecturaActiva, setLecturaActiva] = useState(
+    localStorage.getItem("lecturaActiva") === "true",
+  );
   const [modoAccesible, setModoAccesible] = useState(false);
-
 
   const [selectedBeneficio, setSelectedBeneficio] = useState(null);
   const [selectedActividad, setSelectedActividad] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -77,63 +76,54 @@ const [lecturaActiva, setLecturaActiva] = useState(
   }, []);
 
   useEffect(() => {
-  localStorage.setItem("fontSize", fontSize);
-  localStorage.setItem("altoContraste", altoContraste);
+    localStorage.setItem("fontSize", fontSize);
+    localStorage.setItem("altoContraste", altoContraste);
 
-  document.documentElement.style.fontSize = `${fontSize}px`;
+    document.documentElement.style.fontSize = `${fontSize}px`;
 
-  if (altoContraste) {
-    document.body.classList.add("alto-contraste");
-  } else {
-    document.body.classList.remove("alto-contraste");
-  }
-}, [fontSize, altoContraste]);
+    if (altoContraste) {
+      document.body.classList.add("alto-contraste");
+    } else {
+      document.body.classList.remove("alto-contraste");
+    }
+  }, [fontSize, altoContraste]);
 
-useEffect(() => {
-  localStorage.setItem(
-    "lenguajeClaro",
-    lenguajeClaro
-  );
-}, [lenguajeClaro]);
+  useEffect(() => {
+    localStorage.setItem("lenguajeClaro", lenguajeClaro);
+  }, [lenguajeClaro]);
 
-useEffect(() => {
-  localStorage.setItem(
-    "lecturaActiva",
-    lecturaActiva
-  );
-}, [lecturaActiva]);
+  useEffect(() => {
+    localStorage.setItem("lecturaActiva", lecturaActiva);
+  }, [lecturaActiva]);
 
-useEffect(() => {
-  if (!lecturaActiva) {
+  useEffect(() => {
+    if (!lecturaActiva) {
+      document
+        .querySelectorAll("button, a, h1, h2, h3, p, span")
+        .forEach((element) => {
+          element.onmouseenter = null;
+        });
+
+      window.speechSynthesis.cancel();
+      return;
+    }
+
     document
       .querySelectorAll("button, a, h1, h2, h3, p, span")
       .forEach((element) => {
-        element.onmouseenter = null;
+        element.onmouseenter = () => {
+          const texto = element.innerText;
+
+          if (!texto) return;
+
+          const speech = new SpeechSynthesisUtterance(texto);
+          speech.lang = "es-ES";
+
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(speech);
+        };
       });
-
-    window.speechSynthesis.cancel();
-    return;
-  }
-
-  document
-    .querySelectorAll("button, a, h1, h2, h3, p, span")
-    .forEach((element) => {
-      element.onmouseenter = () => {
-        const texto = element.innerText;
-
-        if (!texto) return;
-
-        const speech = new SpeechSynthesisUtterance(texto);
-        speech.lang = "es-ES";
-
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(speech);
-      };
-    });
-}, [lecturaActiva]);
-
-
-
+  }, [lecturaActiva]);
 
   // Handlers Beneficios
   const handleAddBeneficio = async () => {
@@ -160,33 +150,33 @@ useEffect(() => {
     setBeneficios(beneficios.filter((b) => b.id !== id));
   };
   useEffect(() => {
-  if (!lecturaActiva) return;
+    if (!lecturaActiva) return;
 
-  const elementos = document.querySelectorAll(
-    "button, a, h1, h2, h3, p, span"
-  );
+    const elementos = document.querySelectorAll(
+      "button, a, h1, h2, h3, p, span",
+    );
 
-  elementos.forEach((element) => {
-    element.onmouseenter = () => {
-      const texto = element.innerText;
-
-      if (!texto) return;
-
-      window.speechSynthesis.cancel();
-
-      const speech = new SpeechSynthesisUtterance(texto);
-      speech.lang = "es-ES";
-
-      window.speechSynthesis.speak(speech);
-    };
-  });
-
-  return () => {
     elementos.forEach((element) => {
-      element.onmouseenter = null;
+      element.onmouseenter = () => {
+        const texto = element.innerText;
+
+        if (!texto) return;
+
+        window.speechSynthesis.cancel();
+
+        const speech = new SpeechSynthesisUtterance(texto);
+        speech.lang = "es-ES";
+
+        window.speechSynthesis.speak(speech);
+      };
     });
-  };
-}, [lecturaActiva]);
+
+    return () => {
+      elementos.forEach((element) => {
+        element.onmouseenter = null;
+      });
+    };
+  }, [lecturaActiva]);
 
   // Handlers Actividades
   const handleAddActividad = async () => {
@@ -225,135 +215,137 @@ useEffect(() => {
         </div>
 
         {/* MENÚ */}
-   <nav className="menu">
-  <NavLink to="/">
-    <FaHome className="menu-icon" />
-    <span>Inicio</span>
-  </NavLink>
+        <nav className="menu">
+          <NavLink to="/">
+            <FaHome className="menu-icon" />
+            <span>Inicio</span>
+          </NavLink>
 
-  <NavLink to="/beneficios">
-    <FaHeart className="menu-icon" />
-    <span>Beneficios</span>
-  </NavLink>
+          <NavLink to="/productos">
+            <FaShoppingCart className="menu-icon" />
+            <span>Productos</span>
+          </NavLink>
 
-  <NavLink to="/actividades">
-    <FaCalendarAlt className="menu-icon" />
-    <span>Actividades</span>
-  </NavLink>
+          <NavLink to="/beneficios">
+            <FaHeart className="menu-icon" />
+            <span>Beneficios</span>
+          </NavLink>
 
-  <NavLink to="/recursos">
-    <FaFolderOpen className="menu-icon" />
-    <span>Recursos</span>
-  </NavLink>
+          <NavLink to="/actividades">
+            <FaCalendarAlt className="menu-icon" />
+            <span>Actividades</span>
+          </NavLink>
 
-  <NavLink to="/turnos">
-    <FaClock className="menu-icon" />
-    <span>Turnos</span>
-  </NavLink>
+          <NavLink to="/recursos">
+            <FaFolderOpen className="menu-icon" />
+            <span>Recursos</span>
+          </NavLink>
 
-  <NavLink to="/materiales-adaptados">
-    <FaBook className="menu-icon" />
-    <span>Materiales adaptados</span>
-  </NavLink>
+          <NavLink to="/turnos">
+            <FaClock className="menu-icon" />
+            <span>Turnos</span>
+          </NavLink>
 
-  <NavLink to="/mensajes">
-    <FaComments className="menu-icon" />
-    <span>Mensajes</span>
-  </NavLink>
+          <NavLink to="/materiales-adaptados">
+            <FaBook className="menu-icon" />
+            <span>Materiales adaptados</span>
+          </NavLink>
 
-  <NavLink to="/perfil">
-    <FaUser className="menu-icon" />
-    <span>Mi Perfil</span>
-  </NavLink>
+          <NavLink to="/mensajes">
+            <FaComments className="menu-icon" />
+            <span>Mensajes</span>
+          </NavLink>
 
-  <NavLink to="/configuracion">
-    <FaCog className="menu-icon" />
-    <span>Configuración</span>
-  </NavLink>
-</nav>
+          <NavLink to="/perfil">
+            <FaUser className="menu-icon" />
+            <span>Mi Perfil</span>
+          </NavLink>
 
-      
-{/* ACCESIBILIDAD */}
-<div className="accesibilidad">
-  <h3>Opciones de accesibilidad</h3>
+          <NavLink to="/configuracion">
+            <FaCog className="menu-icon" />
+            <span>Configuración</span>
+          </NavLink>
+        </nav>
 
-  <div className="texto">
-    <button onClick={() => setFontSize(14)}>A-</button>
-    <button onClick={() => setFontSize(16)}>A</button>
-    <button
-      className="selected"
-      onClick={() => setFontSize(20)}
-    >
-      A+
-    </button>
-  </div>
+        {/* ACCESIBILIDAD */}
+        <div className="accesibilidad">
+          <h3>Opciones de accesibilidad</h3>
 
- <div className="accesibilidad-toggle">
-  <button
-    className={altoContraste ? "toggle-btn activo" : "toggle-btn"}
-    onClick={() => setAltoContraste(!altoContraste)}
-  >
-    <BsEyeFill />
-    <span>Alto contraste</span>
-  </button>
+          <div className="texto">
+            <button onClick={() => setFontSize(14)}>A-</button>
+            <button onClick={() => setFontSize(16)}>A</button>
+            <button className="selected" onClick={() => setFontSize(20)}>
+              A+
+            </button>
+          </div>
 
-  <button
-    className={lenguajeClaro ? "toggle-btn activo" : "toggle-btn"}
-    onClick={() => setLenguajeClaro(!lenguajeClaro)}
-  >
-    <BsFileTextFill />
-    <span>Lenguaje claro</span>
-  </button>
+          <div className="accesibilidad-toggle">
+            <button
+              className={altoContraste ? "toggle-btn activo" : "toggle-btn"}
+              onClick={() => setAltoContraste(!altoContraste)}
+            >
+              <BsEyeFill />
+              <span>Alto contraste</span>
+            </button>
 
-  <button
-    className={lecturaActiva ? "toggle-btn activo" : "toggle-btn"}
-    onClick={() => setLecturaActiva(!lecturaActiva)}
-  >
-    <BsVolumeUpFill />
-    <span>
-      {lecturaActiva
-        ? "Desactivar lector"
-        : "Activar lector"}
-    </span>
-  </button>
-</div>
-</div>
-</aside>
+            <button
+              className={lenguajeClaro ? "toggle-btn activo" : "toggle-btn"}
+              onClick={() => setLenguajeClaro(!lenguajeClaro)}
+            >
+              <BsFileTextFill />
+              <span>Lenguaje claro</span>
+            </button>
 
-{/* CONTENIDO */}
-<main className="contenido">
-  <div className="header">
-    <div>
-      <h1>
-        ¡Hola, {usuario?.nombre}! 👋
-      </h1>
+            <button
+              className={lecturaActiva ? "toggle-btn activo" : "toggle-btn"}
+              onClick={() => setLecturaActiva(!lecturaActiva)}
+            >
+              <BsVolumeUpFill />
+              <span>
+                {lecturaActiva ? "Desactivar lector" : "Activar lector"}
+              </span>
+            </button>
+          </div>
+        </div>
+      </aside>
 
-      <p>
-    {lenguajeClaro
-    ? "Selecciona una opción del menú para acceder a beneficios, actividades y recursos."
-    : "¿Qué quieres hacer hoy?"}
-  </p>
-    </div>
+      {/* CONTENIDO */}
+      <main className="contenido">
+        <div className="header">
+          <div>
+            <h1>¡Hola, {usuario?.nombre}!</h1>
 
-
-  </div>
-        {/* TARJETAS */}
-        <div className="cards">
-          <div className="card">
-            <h2>{beneficios.filter((b) => b.disponibilidad).length}</h2>
             <p>
-                {lenguajeClaro
-                 ? "Beneficios disponibles"
-                : "Beneficios activos"}
+              {lenguajeClaro
+                ? "Selecciona una opción del menú para acceder a beneficios, actividades y recursos."
+                : "¿Qué quieres hacer hoy?"}
             </p>
           </div>
-          <div className="card">
+        </div>
+
+        <UserBanner />
+
+        {/* TARJETAS */}
+        <div className="cards">
+          <div
+            className={`card clickable ${activeSection === "beneficios" ? "active" : ""}`}
+            onClick={() => setActiveSection("beneficios")}
+          >
+            <h2>{beneficios.filter((b) => b.disponibilidad).length}</h2>
+            <p>
+              {lenguajeClaro ? "Beneficios disponibles" : "Beneficios activos"}
+            </p>
+          </div>
+          <div
+            className={`card clickable ${activeSection === "actividades" ? "active" : ""}`}
+            onClick={() => setActiveSection("actividades")}
+          >
             <h2>{actividades.length}</h2>
-           <p>
-                  {lenguajeClaro
+            <p>
+              {lenguajeClaro
                 ? "Actividades programadas"
                 : "Actividades próximas"}
-          </p>
+            </p>
           </div>
           <div className="card">
             <h2>...</h2>
@@ -365,39 +357,90 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* BENEFICIOS */}
-        <div className="section">
-          <h2>Beneficios destacados</h2>
-          <button onClick={handleAddBeneficio}>➕ Agregar beneficio</button>
-          {beneficios.length === 0 ? (
-            <p>No hay beneficios disponibles</p>
-          ) : (
-            beneficios.map((b) => (
-              <div
-                key={b.id}
-                className="beneficio clickable"
-                onClick={() => setSelectedBeneficio(b)}
-              >
-                <span>{b.titulo}</span>
+        {/* BENEFICIOS Y ACTIVIDADES */}
+        <div className="home-sections">
+          {activeSection === null && (
+            <div className="section section-featured">
+              <div className="section-header">
+                <div>
+                  <h2>Selecciona una tarjeta</h2>
+                  <p className="section-subtitle">
+                    Toca "Beneficios activos" o "Actividades próximas" para ver
+                    la información.
+                  </p>
+                </div>
               </div>
-            ))
+            </div>
           )}
-        </div>
 
-        <div className="section">
-          <h2>Actividades</h2>
-          {actividades.length === 0 ? (
-            <p>No hay actividades disponibles</p>
-          ) : (
-            actividades.map((a) => (
-              <div
-                key={a.id}
-                className="actividad clickable"
-                onClick={() => setSelectedActividad(a)}
-              >
-                <span>{a.nombre}</span>
+          {activeSection === "beneficios" && (
+            <div className="section section-featured">
+              <div className="section-header">
+                <div>
+                  <h2>Beneficios destacados</h2>
+                  <p className="section-subtitle">
+                    Los beneficios más relevantes para ti
+                  </p>
+                </div>
+                <span className="section-badge">
+                  {beneficios.length} disponibles
+                </span>
               </div>
-            ))
+
+              {beneficios.length === 0 ? (
+                <p>No hay beneficios disponibles</p>
+              ) : (
+                <div className="items-grid">
+                  {beneficios.map((b) => (
+                    <div
+                      key={b.id}
+                      className="item-card clickable"
+                      onClick={() => setSelectedBeneficio(b)}
+                    >
+                      <div>
+                        <h3>{b.titulo}</h3>
+                        <p>{b.descripcion || "Sin descripción"}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeSection === "actividades" && (
+            <div className="section section-featured">
+              <div className="section-header">
+                <div>
+                  <h2>Actividades</h2>
+                  <p className="section-subtitle">
+                    Próximas actividades para participar
+                  </p>
+                </div>
+                <span className="section-badge">
+                  {actividades.length} abiertas
+                </span>
+              </div>
+
+              {actividades.length === 0 ? (
+                <p>No hay actividades disponibles</p>
+              ) : (
+                <div className="items-grid">
+                  {actividades.map((a) => (
+                    <div
+                      key={a.id}
+                      className="item-card clickable"
+                      onClick={() => setSelectedActividad(a)}
+                    >
+                      <div>
+                        <h3>{a.nombre}</h3>
+                        <p>{a.descripcion || "Sin descripción"}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
         <ModalDetalle
