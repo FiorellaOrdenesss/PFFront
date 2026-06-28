@@ -1,20 +1,11 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-import {
-  getBeneficios,
-  createBeneficio,
-  updateBeneficio,
-  deleteBeneficio,
-} from "../services/beneficios";
-import {
-  getActividades,
-  createActividad,
-  updateActividad,
-  deleteActividad,
-} from "../services/actividades";
+import { getBeneficios } from "../services/beneficios";
+import { getActividades } from "../services/actividades";
 
 import {
   FaHome,
+  FaShoppingCart,
   FaHeart,
   FaCalendarAlt,
   FaFolderOpen,
@@ -31,6 +22,7 @@ import { NavLink } from "react-router-dom";
 import "./Home.css";
 import logo from "../assets/logo-inclusivo.png";
 import ModalDetalle from "../components/ModalDetalle";
+import UserBanner from "../components/UserBanner";
 
 function Home() {
   const [beneficios, setBeneficios] = useState([]);
@@ -51,10 +43,10 @@ function Home() {
   const [lecturaActiva, setLecturaActiva] = useState(
     localStorage.getItem("lecturaActiva") === "true",
   );
-  const [modoAccesible, setModoAccesible] = useState(false);
 
   const [selectedBeneficio, setSelectedBeneficio] = useState(null);
   const [selectedActividad, setSelectedActividad] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -91,67 +83,19 @@ function Home() {
 
   useEffect(() => {
     localStorage.setItem("lecturaActiva", lecturaActiva);
-  }, [lecturaActiva]);
-
-  useEffect(() => {
-    if (!lecturaActiva) {
-      document
-        .querySelectorAll("button, a, h1, h2, h3, p, span")
-        .forEach((element) => {
-          element.onmouseenter = null;
-        });
-
-      window.speechSynthesis.cancel();
-      return;
-    }
-
-    document
-      .querySelectorAll("button, a, h1, h2, h3, p, span")
-      .forEach((element) => {
-        element.onmouseenter = () => {
-          const texto = element.innerText;
-
-          if (!texto) return;
-
-          const speech = new SpeechSynthesisUtterance(texto);
-          speech.lang = "es-ES";
-
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.speak(speech);
-        };
-      });
-  }, [lecturaActiva]);
-
-  // Handlers Beneficios
-  const handleAddBeneficio = async () => {
-    const token = localStorage.getItem("token");
-    const nuevo = {
-      titulo: prompt("Título del beneficio:"),
-      descripcion: prompt("Descripción:"),
-      disponibilidad: true,
-    };
-    const res = await createBeneficio(nuevo, token);
-    setBeneficios([...beneficios, res]);
-  };
-
-  const handleUpdateBeneficio = async (id) => {
-    const token = localStorage.getItem("token");
-    const actualizado = { titulo: prompt("Nuevo título:") };
-    const res = await updateBeneficio(id, actualizado, token);
-    setBeneficios(beneficios.map((b) => (b.id === id ? res : b)));
-  };
-
-  const handleDeleteBeneficio = async (id) => {
-    const token = localStorage.getItem("token");
-    await deleteBeneficio(id, token);
-    setBeneficios(beneficios.filter((b) => b.id !== id));
-  };
-  useEffect(() => {
-    if (!lecturaActiva) return;
 
     const elementos = document.querySelectorAll(
       "button, a, h1, h2, h3, p, span",
     );
+
+    if (!lecturaActiva) {
+      elementos.forEach((element) => {
+        element.onmouseenter = null;
+      });
+
+      window.speechSynthesis.cancel();
+      return;
+    }
 
     elementos.forEach((element) => {
       element.onmouseenter = () => {
@@ -160,10 +104,8 @@ function Home() {
         if (!texto) return;
 
         window.speechSynthesis.cancel();
-
         const speech = new SpeechSynthesisUtterance(texto);
         speech.lang = "es-ES";
-
         window.speechSynthesis.speak(speech);
       };
     });
@@ -174,32 +116,6 @@ function Home() {
       });
     };
   }, [lecturaActiva]);
-
-  // Handlers Actividades
-  const handleAddActividad = async () => {
-    const token = localStorage.getItem("token");
-    const nueva = {
-      nombre: prompt("Nombre de la actividad:"),
-      descripcion: prompt("Descripción:"),
-      fecha: new Date(),
-      ubicacion: "Montevideo",
-    };
-    const res = await createActividad(nueva, token);
-    setActividades([...actividades, res]);
-  };
-
-  const handleUpdateActividad = async (id) => {
-    const token = localStorage.getItem("token");
-    const actualizado = { nombre: prompt("Nuevo nombre:") };
-    const res = await updateActividad(id, actualizado, token);
-    setActividades(actividades.map((a) => (a.id === id ? res : a)));
-  };
-
-  const handleDeleteActividad = async (id) => {
-    const token = localStorage.getItem("token");
-    await deleteActividad(id, token);
-    setActividades(actividades.filter((a) => a.id !== id));
-  };
 
   return (
     <div className="home-container">
@@ -337,13 +253,19 @@ function Home() {
 
         {/* TARJETAS */}
         <div className="cards">
-          <div className="card">
+          <div
+            className={`card clickable ${activeSection === "beneficios" ? "active" : ""}`}
+            onClick={() => setActiveSection("beneficios")}
+          >
             <h2>{beneficios.filter((b) => b.disponibilidad).length}</h2>
             <p>
               {lenguajeClaro ? "Beneficios disponibles" : "Beneficios activos"}
             </p>
           </div>
-          <div className="card">
+          <div
+            className={`card clickable ${activeSection === "actividades" ? "active" : ""}`}
+            onClick={() => setActiveSection("actividades")}
+          >
             <h2>{actividades.length}</h2>
             <p>
               {lenguajeClaro
@@ -361,41 +283,72 @@ function Home() {
           </div>
         </div>
 
-        {/* BENEFICIOS */}
-        <div className="section">
-          <h2>Beneficios destacados</h2>
-          <button onClick={handleAddBeneficio}>➕ Agregar beneficio</button>
-          {beneficios.length === 0 ? (
-            <p>No hay beneficios disponibles</p>
-          ) : (
-            beneficios.map((b) => (
-              <div
-                key={b.id}
-                className="beneficio clickable"
-                onClick={() => setSelectedBeneficio(b)}
-              >
-                <span>{b.titulo}</span>
-              </div>
-            ))
-          )}
-        </div>
+        {/* VISTA SECCION */}
+        {activeSection === null && (
+          <div className="section section-featured">
+            <h2>Selecciona una tarjeta</h2>
+            <p>
+              Toca "Beneficios activos" o "Actividades próximas" para ver más
+              detalles.
+            </p>
+          </div>
+        )}
 
-        <div className="section">
-          <h2>Actividades</h2>
-          {actividades.length === 0 ? (
-            <p>No hay actividades disponibles</p>
-          ) : (
-            actividades.map((a) => (
-              <div
-                key={a.id}
-                className="actividad clickable"
-                onClick={() => setSelectedActividad(a)}
-              >
-                <span>{a.nombre}</span>
+        {activeSection === "beneficios" && (
+          <div className="section">
+            <div className="section-header">
+              <div>
+                <h2>Beneficios destacados</h2>
+                <p>
+                  {lenguajeClaro
+                    ? "Elige un beneficio para ver más detalles."
+                    : "Haz clic en un beneficio para ver más información."}
+                </p>
               </div>
-            ))
-          )}
-        </div>
+            </div>
+            {beneficios.length === 0 ? (
+              <p>No hay beneficios disponibles</p>
+            ) : (
+              beneficios.map((b) => (
+                <div
+                  key={b.id}
+                  className="beneficio clickable"
+                  onClick={() => setSelectedBeneficio(b)}
+                >
+                  <span>{b.titulo}</span>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+        {activeSection === "actividades" && (
+          <div className="section">
+            <div className="section-header">
+              <div>
+                <h2>Actividades</h2>
+                <p>
+                  {lenguajeClaro
+                    ? "Elige una actividad para verla en detalle."
+                    : "Haz clic en una actividad para explorarla."}
+                </p>
+              </div>
+            </div>
+            {actividades.length === 0 ? (
+              <p>No hay actividades disponibles</p>
+            ) : (
+              actividades.map((a) => (
+                <div
+                  key={a.id}
+                  className="actividad clickable"
+                  onClick={() => setSelectedActividad(a)}
+                >
+                  <span>{a.nombre}</span>
+                </div>
+              ))
+            )}
+          </div>
+        )}
         <ModalDetalle
           item={selectedBeneficio}
           onClose={() => setSelectedBeneficio(null)}
