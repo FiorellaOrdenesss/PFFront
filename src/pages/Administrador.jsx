@@ -180,7 +180,8 @@ function Administrador() {
     const actualizado = {
       titulo: prompt("Nuevo título:", beneficio.titulo) || beneficio.titulo,
       descripcion:
-        prompt("Nueva descripción:", beneficio.descripcion) || beneficio.descripcion,
+        prompt("Nueva descripción:", beneficio.descripcion) ||
+        beneficio.descripcion,
     };
 
     const res = await updateBeneficio(id, actualizado, token);
@@ -220,7 +221,8 @@ function Administrador() {
     const actualizado = {
       nombre: prompt("Nuevo nombre:", actividad.nombre) || actividad.nombre,
       descripcion:
-        prompt("Nueva descripción:", actividad.descripcion) || actividad.descripcion,
+        prompt("Nueva descripción:", actividad.descripcion) ||
+        actividad.descripcion,
       fecha:
         prompt("Nueva fecha (YYYY-MM-DD):", actividad.fecha) || actividad.fecha,
       ubicacion:
@@ -228,9 +230,7 @@ function Administrador() {
     };
 
     const res = await updateActividad(id, actualizado, token);
-    const listadoActualizado = actividades.map((a) =>
-      a.id === id ? res : a,
-    );
+    const listadoActualizado = actividades.map((a) => (a.id === id ? res : a));
     actualizarActividades(listadoActualizado);
   };
 
@@ -410,7 +410,10 @@ function Administrador() {
                 Revisa y administra los beneficios disponibles.
               </p>
             </div>
-            <button className="btn btn-success" onClick={handleAgregarBeneficio}>
+            <button
+              className="btn btn-success"
+              onClick={handleAgregarBeneficio}
+            >
               Agregar beneficio
             </button>
           </div>
@@ -462,7 +465,10 @@ function Administrador() {
                 Revisa y administra las actividades programadas.
               </p>
             </div>
-            <button className="btn btn-success" onClick={handleAgregarActividad}>
+            <button
+              className="btn btn-success"
+              onClick={handleAgregarActividad}
+            >
               Agregar actividad
             </button>
           </div>
@@ -483,7 +489,9 @@ function Administrador() {
                   <tr key={a.id}>
                     <td>{a.nombre}</td>
                     <td>{a.descripcion}</td>
-                    <td>{a.fecha ? new Date(a.fecha).toLocaleDateString() : "-"}</td>
+                    <td>
+                      {a.fecha ? new Date(a.fecha).toLocaleDateString() : "-"}
+                    </td>
                     <td>{a.ubicacion}</td>
                     <td>
                       <button
