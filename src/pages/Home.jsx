@@ -23,7 +23,6 @@ import {
   FaComments,
   FaUser,
   FaCog,
-  FaShoppingCart,
 } from "react-icons/fa";
 
 import { BsEyeFill, BsFileTextFill, BsVolumeUpFill } from "react-icons/bs";
@@ -32,7 +31,6 @@ import { NavLink } from "react-router-dom";
 import "./Home.css";
 import logo from "../assets/logo-inclusivo.png";
 import ModalDetalle from "../components/ModalDetalle";
-import UserBanner from "../components/UserBanner";
 
 function Home() {
   const [beneficios, setBeneficios] = useState([]);
@@ -57,7 +55,6 @@ function Home() {
 
   const [selectedBeneficio, setSelectedBeneficio] = useState(null);
   const [selectedActividad, setSelectedActividad] = useState(null);
-  const [activeSection, setActiveSection] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -340,19 +337,13 @@ function Home() {
 
         {/* TARJETAS */}
         <div className="cards">
-          <div
-            className={`card clickable ${activeSection === "beneficios" ? "active" : ""}`}
-            onClick={() => setActiveSection("beneficios")}
-          >
+          <div className="card">
             <h2>{beneficios.filter((b) => b.disponibilidad).length}</h2>
             <p>
               {lenguajeClaro ? "Beneficios disponibles" : "Beneficios activos"}
             </p>
           </div>
-          <div
-            className={`card clickable ${activeSection === "actividades" ? "active" : ""}`}
-            onClick={() => setActiveSection("actividades")}
-          >
+          <div className="card">
             <h2>{actividades.length}</h2>
             <p>
               {lenguajeClaro
@@ -370,90 +361,39 @@ function Home() {
           </div>
         </div>
 
-        {/* BENEFICIOS Y ACTIVIDADES */}
-        <div className="home-sections">
-          {activeSection === null && (
-            <div className="section section-featured">
-              <div className="section-header">
-                <div>
-                  <h2>Selecciona una tarjeta</h2>
-                  <p className="section-subtitle">
-                    Toca "Beneficios activos" o "Actividades próximas" para ver
-                    la información.
-                  </p>
-                </div>
+        {/* BENEFICIOS */}
+        <div className="section">
+          <h2>Beneficios destacados</h2>
+          <button onClick={handleAddBeneficio}>➕ Agregar beneficio</button>
+          {beneficios.length === 0 ? (
+            <p>No hay beneficios disponibles</p>
+          ) : (
+            beneficios.map((b) => (
+              <div
+                key={b.id}
+                className="beneficio clickable"
+                onClick={() => setSelectedBeneficio(b)}
+              >
+                <span>{b.titulo}</span>
               </div>
-            </div>
+            ))
           )}
+        </div>
 
-          {activeSection === "beneficios" && (
-            <div className="section section-featured">
-              <div className="section-header">
-                <div>
-                  <h2>Beneficios destacados</h2>
-                  <p className="section-subtitle">
-                    Los beneficios más relevantes para ti
-                  </p>
-                </div>
-                <span className="section-badge">
-                  {beneficios.length} disponibles
-                </span>
+        <div className="section">
+          <h2>Actividades</h2>
+          {actividades.length === 0 ? (
+            <p>No hay actividades disponibles</p>
+          ) : (
+            actividades.map((a) => (
+              <div
+                key={a.id}
+                className="actividad clickable"
+                onClick={() => setSelectedActividad(a)}
+              >
+                <span>{a.nombre}</span>
               </div>
-
-              {beneficios.length === 0 ? (
-                <p>No hay beneficios disponibles</p>
-              ) : (
-                <div className="items-grid">
-                  {beneficios.map((b) => (
-                    <div
-                      key={b.id}
-                      className="item-card clickable"
-                      onClick={() => setSelectedBeneficio(b)}
-                    >
-                      <div>
-                        <h3>{b.titulo}</h3>
-                        <p>{b.descripcion || "Sin descripción"}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeSection === "actividades" && (
-            <div className="section section-featured">
-              <div className="section-header">
-                <div>
-                  <h2>Actividades</h2>
-                  <p className="section-subtitle">
-                    Próximas actividades para participar
-                  </p>
-                </div>
-                <span className="section-badge">
-                  {actividades.length} abiertas
-                </span>
-              </div>
-
-              {actividades.length === 0 ? (
-                <p>No hay actividades disponibles</p>
-              ) : (
-                <div className="items-grid">
-                  {actividades.map((a) => (
-                    <div
-                      key={a.id}
-                      className="item-card clickable"
-                      onClick={() => setSelectedActividad(a)}
-                    >
-                      <div>
-                        <h3>{a.nombre}</h3>
-                        <p>{a.descripcion || "Sin descripción"}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            ))
           )}
         </div>
         <ModalDetalle
