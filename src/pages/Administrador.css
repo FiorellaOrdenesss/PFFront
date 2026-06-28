@@ -69,6 +69,22 @@
   background: linear-gradient(135deg, #0f4c87, #2563eb);
 }
 
+.metric-card-beneficios {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.metric-card-beneficios-activos {
+  background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.metric-card-actividades {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+}
+
+.metric-card-actividades-proximas {
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
 .table-wrapper {
   background: white;
   border-radius: 24px;

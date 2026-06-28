@@ -272,9 +272,22 @@ function Home() {
           <h3>Opciones de accesibilidad</h3>
 
           <div className="texto">
-            <button onClick={() => setFontSize(14)}>A-</button>
-            <button onClick={() => setFontSize(16)}>A</button>
-            <button className="selected" onClick={() => setFontSize(20)}>
+            <button
+              className={fontSize === 14 ? "selected" : ""}
+              onClick={() => setFontSize(14)}
+            >
+              A-
+            </button>
+            <button
+              className={fontSize === 16 ? "selected" : ""}
+              onClick={() => setFontSize(16)}
+            >
+              A
+            </button>
+            <button
+              className={fontSize === 20 ? "selected" : ""}
+              onClick={() => setFontSize(20)}
+            >
               A+
             </button>
           </div>
