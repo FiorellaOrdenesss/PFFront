@@ -14,7 +14,6 @@ import {
   FaComments,
   FaUser,
   FaCog,
-  FaShoppingCart,
 } from "react-icons/fa";
 
 import { BsEyeFill, BsFileTextFill, BsVolumeUpFill } from "react-icons/bs";
