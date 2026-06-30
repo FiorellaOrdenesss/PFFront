@@ -20,13 +20,14 @@ import {
 } from "../services/actividades";
 import { getUsuarios } from "../services/usuarios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavbarProductos from "../components/NavbarProductos";
+import ModalCarrito from "../components/ModalCarrito";
 import "./Administrador.css";
 
 function Administrador() {
   const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [carrito, setCarrito] = useState([]);
+  const [mostrarModal, setMostrarModal] = useState(false);
   const [usuarios, setUsuarios] = useState(0);
   const [productosActivos, setProductosActivos] = useState(0);
   const [sinStock, setSinStock] = useState(0);
@@ -246,12 +247,7 @@ function Administrador() {
       className="container-fluid p-0 administrador-page"
       style={{ backgroundColor: "#F5F5F9", minHeight: "100vh" }}
     >
-      <NavbarProductos
-        busqueda={busqueda}
-        setBusqueda={setBusqueda}
-        carrito={carrito}
-        onCarritoClick={() => alert("Abrir modal del carrito")}
-      />
+      {/* NavbarProductos removed */}
 
       <div className="administrador-content">
         <div className="administrador-hero">
@@ -268,6 +264,37 @@ function Administrador() {
               <div>
                 <h6>Usuarios</h6>
                 <p className="metric-number">{usuarios}</p>
+
+                {mostrarModal && (
+                  <ModalCarrito
+                    carrito={carrito}
+                    onClose={() => setMostrarModal(false)}
+                    onAgregar={(p) =>
+                      setCarrito((c) =>
+                        c.map((it) =>
+                          it.id === p.id
+                            ? { ...it, cantidad: it.cantidad + 1 }
+                            : it,
+                        ),
+                      )
+                    }
+                    onReducir={(id) =>
+                      setCarrito((c) =>
+                        c
+                          .map((it) =>
+                            it.id === id
+                              ? { ...it, cantidad: it.cantidad - 1 }
+                              : it,
+                          )
+                          .filter((it) => it.cantidad > 0),
+                      )
+                    }
+                    onEliminar={(id) =>
+                      setCarrito((c) => c.filter((it) => it.id !== id))
+                    }
+                    onFinalizar={() => setMostrarModal(false)}
+                  />
+                )}
               </div>
             </div>
           </div>

@@ -39,3 +39,24 @@ export async function deleteActividad(id, token) {
     });
     return res.data;
 }
+
+// Crear actividad con imagen (multipart/form-data)
+export async function createActividadWithImage(dataForm, token, onUploadProgress) {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    // axios will set the correct Content-Type with FormData
+    const res = await api.post(`/actividades`, dataForm, {
+        headers,
+        onUploadProgress,
+    });
+    return res.data;
+}
+
+// Actualizar actividad con imagen (multipart/form-data)
+export async function updateActividadWithImage(id, dataForm, token, onUploadProgress) {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const res = await api.put(`/actividades/${id}`, dataForm, {
+        headers,
+        onUploadProgress,
+    });
+    return res.data;
+}

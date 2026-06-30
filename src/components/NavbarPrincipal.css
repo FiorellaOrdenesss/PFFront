@@ -1,0 +1,207 @@
+.navbar-principal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.nav-brand {
+  font-weight: 800;
+  color: #111827;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.nav-brand .nav-logo-img {
+  height: 42px;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav-link {
+  color: #475569;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ac-wrapper {
+  position: relative;
+}
+.ac-toggle-btn {
+  background: linear-gradient(135deg, #f3f4ff, #eef2ff);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #3730a3;
+}
+
+.ac-dropdown {
+  position: absolute;
+  right: 0;
+  top: 46px;
+  width: 360px;
+  background: linear-gradient(180deg, #f8f7ff, #f2f4ff);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  padding: 22px;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  border: 1px solid #ececff;
+}
+
+.ac-section {
+  padding: 12px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent);
+}
+
+.ac-label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--primary);
+  font-size: 14px;
+}
+.ac-font-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ac-font-controls button {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+.ac-font-controls span {
+  min-width: 46px;
+  text-align: center;
+  font-weight: 700;
+}
+.ac-tts-btn {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+.ac-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ac-links .nav-link {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text-light);
+  font-weight: 700;
+}
+.ac-links .nav-link.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+/* Make controls focusable and visible for keyboard navigation */
+.ac-toggle-btn:focus,
+.ac-font-controls button:focus,
+.ac-tts-btn:focus,
+.ac-links .nav-link:focus {
+  outline: 3px solid rgba(99, 102, 241, 0.18);
+  outline-offset: 2px;
+}
+
+/* High-contrast adjustments */
+body.alto-contraste .ac-dropdown {
+  background: #111 !important;
+  color: #ffd600 !important;
+  border: 2px solid #ffd600 !important;
+  box-shadow: none !important;
+}
+
+body.alto-contraste .ac-section {
+  background: transparent;
+}
+body.alto-contraste .ac-toggle-btn {
+  background: #111;
+  color: #ffd600;
+  border: 2px solid #ffd600;
+}
+body.alto-contraste .ac-font-controls button,
+body.alto-contraste .ac-tts-btn {
+  background: #111;
+  color: #ffd600;
+  border: 1px solid #ffd600;
+}
+body.alto-contraste .ac-links .nav-link {
+  background: transparent;
+  color: #ffd600;
+  border: 1px solid rgba(255, 214, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* Toggle button styles similar to Home */
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s;
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-btn svg {
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.toggle-btn:hover {
+  transform: translateY(-2px);
+  background: #eef2ff;
+}
+
+.toggle-btn.activo {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}

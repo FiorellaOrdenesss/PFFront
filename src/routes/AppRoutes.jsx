@@ -11,6 +11,7 @@ import Configuracion from "../pages/Configuracion";
 import Register from "../pages/Register";
 import Productos from "../pages/Productos";
 import Administrador from "../pages/Administrador";
+import PrincipalLayout from "../components/PrincipalLayout";
 function AppRoutes() {
   const token = localStorage.getItem("token");
 
@@ -25,36 +26,100 @@ function AppRoutes() {
         />
         <Route
           path="/beneficios"
-          element={token ? <Beneficios /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Beneficios />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/actividades"
-          element={token ? <Actividades /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Actividades />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/recursos"
-          element={token ? <Recursos /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Recursos />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/turnos"
-          element={token ? <Turnos /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Turnos />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/mensajes"
-          element={token ? <Mensajes /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Mensajes />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/perfil"
-          element={token ? <Perfil /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Perfil />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/configuracion"
-          element={token ? <Configuracion /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Configuracion />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route path="/register" element={<Register />} />
         <Route
           path="/productos"
-          element={token ? <Productos /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <PrincipalLayout>
+                <Productos />
+              </PrincipalLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/administrador"

@@ -1,24 +1,20 @@
 // src/pages/Productos.jsx
 import { useEffect, useState } from "react";
 import { getProductos, updateProducto } from "../services/productos";
-import NavbarProductos from "../components/NavbarProductos";
 import ModalCarrito from "../components/ModalCarrito";
 
-import {
-  FaShoppingCart,
-  FaBoxOpen,
-  FaSearch,
-} from "react-icons/fa";
+import { FaShoppingCart, FaBoxOpen, FaSearch } from "react-icons/fa";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Productos.css";
+import ModalMessage from "../components/ModalMessage";
 
 function Productos() {
-
   const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [carrito, setCarrito] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const savedCarrito = localStorage.getItem("carrito");
@@ -29,61 +25,38 @@ function Productos() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(
-      "carrito",
-      JSON.stringify(carrito)
-    );
+    localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
 
   useEffect(() => {
-
     const token = localStorage.getItem("token");
 
     if (token) {
-
       getProductos(token)
         .then((data) => setProductos(data))
-        .catch((err) =>
-          console.error(
-            "Error al traer productos:",
-            err,
-          ),
-        );
+        .catch((err) => console.error("Error al traer productos:", err));
     }
-
   }, []);
 
   const productosFiltrados = productos.filter((producto) =>
-    producto.nombre
-      .toLowerCase()
-      .includes(busqueda.toLowerCase()),
+    producto.nombre.toLowerCase().includes(busqueda.toLowerCase()),
   );
 
   const handleAgregarCarrito = (producto) => {
-
-    const existe = carrito.find(
-      (item) => item.id === producto.id,
-    );
+    const existe = carrito.find((item) => item.id === producto.id);
 
     if (existe) {
-
       setCarrito(
-
         carrito.map((item) =>
-
           item.id === producto.id
             ? {
                 ...item,
                 cantidad: item.cantidad + 1,
               }
             : item,
-
         ),
-
       );
-
     } else {
-
       setCarrito([
         ...carrito,
         {
@@ -91,23 +64,15 @@ function Productos() {
           cantidad: 1,
         },
       ]);
-
     }
-
   };
 
   const handleEliminarCarrito = (id) => {
-    setCarrito(
-      carrito.filter(
-        (producto) => producto.id !== id,
-      ),
-    );
+    setCarrito(carrito.filter((producto) => producto.id !== id));
   };
 
   const handleReducirCantidad = (id) => {
-
     setCarrito(
-
       carrito
         .map((item) =>
           item.id === id
@@ -118,154 +83,101 @@ function Productos() {
             : item,
         )
         .filter((item) => item.cantidad > 0),
-
     );
-
   };
 
   const handleFinalizarCompra = async () => {
-
     const token = localStorage.getItem("token");
 
     try {
-
       let montoCompra = 0;
 
       let productosVendidosCompra = 0;
 
       for (const item of carrito) {
-
         await updateProducto(
-
           item.id,
 
           {
-            ventas:
-              (item.ventas || 0) +
-              item.cantidad,
+            ventas: (item.ventas || 0) + item.cantidad,
           },
 
           token,
-
         );
 
-        montoCompra +=
-          item.precio * item.cantidad;
+        montoCompra += item.precio * item.cantidad;
 
-        productosVendidosCompra +=
-          item.cantidad;
-
+        productosVendidosCompra += item.cantidad;
       }
 
-      const comprasPrevias =
-        JSON.parse(
-          localStorage.getItem("compras"),
-        ) || {
-          cantidad: 0,
-          totalMonto: 0,
-          productosVendidos: 0,
-        };
-
-      const nuevasCompras = {
-
-        cantidad:
-          comprasPrevias.cantidad + 1,
-
-        totalMonto:
-          comprasPrevias.totalMonto +
-          montoCompra,
-
-        productosVendidos:
-          comprasPrevias.productosVendidos +
-          productosVendidosCompra,
-
+      const comprasPrevias = JSON.parse(localStorage.getItem("compras")) || {
+        cantidad: 0,
+        totalMonto: 0,
+        productosVendidos: 0,
       };
 
-      localStorage.setItem(
-        "compras",
-        JSON.stringify(nuevasCompras),
-      );
+      const nuevasCompras = {
+        cantidad: comprasPrevias.cantidad + 1,
 
-      alert(
-        `Compra realizada con éxito ✅\nMonto: $${montoCompra}`,
-      );
+        totalMonto: comprasPrevias.totalMonto + montoCompra,
+
+        productosVendidos:
+          comprasPrevias.productosVendidos + productosVendidosCompra,
+      };
+
+      localStorage.setItem("compras", JSON.stringify(nuevasCompras));
+
+      setMessage(`Compra realizada con éxito ✅\nMonto: $${montoCompra}`);
 
       setCarrito([]);
 
       localStorage.removeItem("carrito");
 
       setMostrarModal(false);
-
     } catch (error) {
-
       console.error(error);
 
-      alert(
-        "Hubo un problema al registrar la compra",
-      );
-
+      setMessage("Hubo un problema al registrar la compra");
     }
-
   };
-   
-    return (
+
+  return (
     <div className="productos-page">
-      <NavbarProductos
-        busqueda={busqueda}
-        setBusqueda={setBusqueda}
-        carrito={carrito}
-        onCarritoClick={() => setMostrarModal(true)}
-      />
+      {/* NavbarProductos removed - search and carrito controls remain in page */}
 
       <div className="productos-container">
-
         <div className="productos-header">
-
           <div className="productos-info">
+            <span className="badge-inclusivo">Inclusivo+</span>
 
-            <span className="badge-inclusivo">
-              Inclusivo+
-            </span>
-
-            <h1>
-              Productos Accesibles
-            </h1>
+            <h1>Productos Accesibles</h1>
 
             <p>
-              Descubre productos pensados para mejorar la calidad
-              de vida y favorecer la autonomía de las personas con discapacidad.
+              Descubre productos pensados para mejorar la calidad de vida y
+              favorecer la autonomía de las personas con discapacidad.
             </p>
-
           </div>
 
           <div className="productos-resumen">
-
             <div className="resumen-card">
-
               <FaBoxOpen className="resumen-icon" />
 
               <h2>{productos.length}</h2>
 
               <span>Productos</span>
-
             </div>
 
             <div className="resumen-card">
-
               <FaShoppingCart className="resumen-icon" />
 
               <h2>{carrito.length}</h2>
 
               <span>En carrito</span>
-
             </div>
-
           </div>
-
         </div>
 
         <div className="productos-buscador">
-
           <FaSearch />
 
           <input
@@ -274,89 +186,48 @@ function Productos() {
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
-
         </div>
 
         {productosFiltrados.length === 0 ? (
-
           <div className="sin-productos">
-
             <FaBoxOpen size={70} />
 
             <h3>No hay productos disponibles</h3>
 
-            <p>
-              Cuando existan productos aparecerán aquí.
-            </p>
-
+            <p>Cuando existan productos aparecerán aquí.</p>
           </div>
-
         ) : (
-
           <div className="productos-grid">
-
             {productosFiltrados.map((p) => (
-
-              <div
-                key={p.id}
-                className="producto-card"
-              >
-
-                <div className="producto-imagen">
-
-                  📦
-
-                </div>
+              <div key={p.id} className="producto-card">
+                <div className="producto-imagen">📦</div>
 
                 <div className="producto-info">
+                  <span className="producto-categoria">Producto Adaptado</span>
 
-                  <span className="producto-categoria">
-                    Producto Adaptado
-                  </span>
+                  <h3>{p.nombre}</h3>
 
-                  <h3>
-                    {p.nombre}
-                  </h3>
-
-                  <p>
-                    {p.descripcion}
-                  </p>
-
+                  <p>{p.descripcion}</p>
                 </div>
 
                 <div className="producto-footer">
-
-                  <div className="precio">
-
-                    ${p.precio}
-
-                  </div>
+                  <div className="precio">${p.precio}</div>
 
                   <button
                     className="btn-agregar"
                     onClick={() => handleAgregarCarrito(p)}
                   >
-
                     <FaShoppingCart />
-
                     Agregar
-
                   </button>
-
                 </div>
-
               </div>
-
             ))}
-
           </div>
-
         )}
-
       </div>
 
       {mostrarModal && (
-
         <ModalCarrito
           carrito={carrito}
           onClose={() => setMostrarModal(false)}
@@ -365,9 +236,13 @@ function Productos() {
           onEliminar={handleEliminarCarrito}
           onFinalizar={handleFinalizarCompra}
         />
-
       )}
 
+      <ModalMessage
+        title="Compra"
+        message={message}
+        onClose={() => setMessage("")}
+      />
     </div>
   );
 }
