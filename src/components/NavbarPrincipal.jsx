@@ -85,7 +85,7 @@ function NavbarPrincipal() {
         >
           Actividades
         </NavLink>
-        
+
         <NavLink
           to="/recursos"
           className={({ isActive }) =>

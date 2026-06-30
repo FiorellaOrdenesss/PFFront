@@ -168,9 +168,39 @@ body.alto-contraste .ac-links .nav-link {
   border: 1px solid rgba(255, 214, 0, 0.08);
 }
 
+@media (max-width: 980px) {
+  .navbar-principal {
+    flex-wrap: wrap;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 768px) {
+  .navbar-principal {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .nav-links {
     display: none;
+  }
+
+  .nav-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ac-dropdown {
+    width: min(90vw, 360px);
+    right: auto;
+    left: 0;
   }
 }
 

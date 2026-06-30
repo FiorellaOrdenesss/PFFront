@@ -23,6 +23,7 @@ import "./Home.css";
 import logo from "../assets/logo-inclusivo.png";
 import ModalDetalle from "../components/ModalDetalle";
 import UserBanner from "../components/UserBanner";
+import Footer from "../components/Footer";
 
 function Home() {
   const [beneficios, setBeneficios] = useState([]);
@@ -357,6 +358,7 @@ function Home() {
           item={selectedActividad}
           onClose={() => setSelectedActividad(null)}
         />
+        <Footer />
       </main>
     </div>
   );

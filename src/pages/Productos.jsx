@@ -42,6 +42,11 @@ function Productos() {
     producto.nombre.toLowerCase().includes(busqueda.toLowerCase()),
   );
 
+  const totalItemsCarrito = carrito.reduce(
+    (acc, item) => acc + (item.cantidad || 1),
+    0,
+  );
+
   const handleAgregarCarrito = (producto) => {
     const existe = carrito.find((item) => item.id === producto.id);
 
@@ -167,13 +172,18 @@ function Productos() {
               <span>Productos</span>
             </div>
 
-            <div className="resumen-card">
+            <button
+              type="button"
+              className="resumen-card"
+              onClick={() => setMostrarModal(true)}
+              aria-label="Abrir carrito"
+            >
               <FaShoppingCart className="resumen-icon" />
 
-              <h2>{carrito.length}</h2>
+              <h2>{totalItemsCarrito}</h2>
 
               <span>En carrito</span>
-            </div>
+            </button>
           </div>
         </div>
 

@@ -32,6 +32,12 @@ function Configuracion() {
         <button className="btn btn-primary" onClick={irAdministrador}>
           Administrador
         </button>
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => navigate("/home")}
+        >
+          Volver a Home
+        </button>
         {/* Admin registration moved to Register page */}
         <ModalMessage
           title="Configuración"
