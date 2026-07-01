@@ -62,9 +62,7 @@ button {
   background: linear-gradient(180deg, #fafbff 0%, #f4f7fd 100%);
 }
 
-/****************************/
-/******** SIDEBAR ***********/
-/****************************/
+
 
 .sidebar {
   width: 320px;
@@ -104,9 +102,7 @@ button {
   border-radius: 20px;
 }
 
-/****************************/
-/********* LOGO *************/
-/****************************/
+
 
 .logo {
   text-align: center;
@@ -147,9 +143,7 @@ button {
 
   letter-spacing: 0.4px;
 }
-/****************************/
-/*********** MENÚ ***********/
-/****************************/
+
 
 .menu {
   display: flex;
@@ -225,7 +219,6 @@ button {
   transform: scale(1.15);
 }
 
-/******** LINK ACTIVO ********/
 
 .menu .active {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -243,9 +236,6 @@ button {
   color: white;
 }
 
-/****************************/
-/****** ACCESIBILIDAD *******/
-/****************************/
 
 .accesibilidad {
   margin-top: 35px;
@@ -373,9 +363,7 @@ button {
   color: white;
 }
 
-/********************************/
-/******** CONTENIDO **************/
-/********************************/
+
 
 .contenido {
   flex: 1;
@@ -385,9 +373,7 @@ button {
   overflow-y: auto;
 }
 
-/********************************/
-/******** HEADER *****************/
-/********************************/
+
 
 .header {
   display: flex;
@@ -443,9 +429,7 @@ button {
   box-shadow: var(--shadow);
 }
 
-/********************************/
-/******** BANNER *****************/
-/********************************/
+
 
 .banner-home {
   margin: 28px 0 36px;
@@ -597,9 +581,7 @@ button {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
 }
 
-/********************************/
-/************ CARDS **************/
-/********************************/
+
 
 .cards {
   display: grid;
@@ -686,9 +668,7 @@ button {
   font-size: 15px;
 }
 
-/********************************/
-/*********** SECTION ************/
-/********************************/
+
 
 .section {
   background: var(--surface);
@@ -746,9 +726,7 @@ button {
   line-height: 1.6;
 }
 
-/********************************/
-/******** BENEFICIOS ************/
-/********************************/
+
 
 .beneficio {
   display: flex;
@@ -788,9 +766,7 @@ button {
   color: var(--text);
 }
 
-/********************************/
-/******** ACTIVIDADES ***********/
-/********************************/
+
 
 .actividad {
   display: flex;
@@ -830,9 +806,7 @@ button {
   color: var(--text);
 }
 
-/********************************/
-/******** ESTADOS ***************/
-/********************************/
+
 
 .estado {
   display: inline-flex;
@@ -856,9 +830,7 @@ button {
   letter-spacing: 0.3px;
 }
 
-/********************************/
-/******** BOTONES ***************/
-/********************************/
+
 
 .beneficio button,
 .actividad button {
@@ -890,9 +862,6 @@ button {
   transform: translateY(-2px);
 }
 
-/********************************/
-/******** LISTAS ****************/
-/********************************/
 
 .items-grid {
   display: grid;
@@ -944,9 +913,7 @@ button {
   line-height: 1.7;
 }
 
-/********************************/
-/******** BADGES ***************/
-/********************************/
+
 
 .section-badge {
   background: #eef2ff;
@@ -970,9 +937,6 @@ button {
   line-height: 1.6;
 }
 
-/********************************/
-/******** CLICKABLE *************/
-/********************************/
 
 .clickable {
   transition: 0.3s;
@@ -982,9 +946,7 @@ button {
   background: #f8f9ff;
 }
 
-/********************************/
-/******** ANIMACIONES ***********/
-/********************************/
+
 
 @keyframes fadeUp {
   from {
@@ -1037,14 +999,13 @@ button {
   transform: translateX(100%);
 }
 
-/********************************/
-/****** ALTO CONTRASTE ***********/
-/********************************/
 
-.alto-contraste {
-  background: #000 !important;
 
-  color: #ffd600 !important;
+/* Modo Daltonismo */
+
+.alto-contraste{
+    background:#ffffff !important;
+    color:#222222 !important;
 }
 
 .alto-contraste .sidebar,
@@ -1053,59 +1014,67 @@ button {
 .alto-contraste .accesibilidad,
 .alto-contraste .item-card,
 .alto-contraste .beneficio,
-.alto-contraste .actividad {
-  background: #111 !important;
+.alto-contraste .actividad{
 
-  color: #ffd600 !important;
+    background:#f8f9fa !important;
+    color:#222222 !important;
 
-  border: 2px solid #ffd600 !important;
+    border:3px solid #0072B2 !important;
 
-  box-shadow: none !important;
 }
 
 .alto-contraste h1,
 .alto-contraste h2,
 .alto-contraste h3,
 .alto-contraste p,
-.alto-contraste span {
-  color: #ffd600 !important;
+.alto-contraste span{
+
+    color:#222222 !important;
+
 }
 
-.alto-contraste .menu a {
-  color: #ffd600 !important;
+.alto-contraste a{
+
+    color:#0072B2 !important;
+
 }
 
-.alto-contraste .menu .active {
-  background: #ffd600 !important;
+.alto-contraste button{
 
-  color: #000 !important;
+    background:#0072B2 !important;
+    color:white !important;
+
+    border:none !important;
+
 }
 
-.alto-contraste .menu .active .menu-icon {
-  color: #000 !important;
+.alto-contraste button:hover{
+
+    background:#005b8f !important;
+
 }
 
-.alto-contraste .toggle-btn {
-  background: #222 !important;
+.alto-contraste .menu .active{
 
-  color: #ffd600 !important;
+    background:#E69F00 !important;
 
-  border: 1px solid #ffd600;
+    color:#222222 !important;
+
 }
 
-.alto-contraste .toggle-btn.activo {
-  background: #ffd600 !important;
+.alto-contraste input,
+.alto-contraste textarea,
+.alto-contraste select{
 
-  color: #000 !important;
+    background:white !important;
+
+    color:#222222 !important;
+
+    border:2px solid #0072B2 !important;
+
 }
 
-.alto-contraste button {
-  border: 2px solid #ffd600 !important;
-}
 
-/********************************/
-/******** SCROLLBAR **************/
-/********************************/
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -1121,9 +1090,7 @@ button {
   border-radius: 30px;
 }
 
-/********************************/
-/********* FOCUS *****************/
-/********************************/
+
 
 button:focus-visible,
 a:focus-visible {
@@ -1134,9 +1101,6 @@ a:focus-visible {
   border-radius: 10px;
 }
 
-/********************************/
-/******** RESPONSIVE *************/
-/********************************/
 
 @media (max-width: 1400px) {
   .cards {
@@ -1260,9 +1224,6 @@ a:focus-visible {
   }
 }
 
-/********************************/
-/********* TRANSICIONES **********/
-/********************************/
 
 * {
   transition:

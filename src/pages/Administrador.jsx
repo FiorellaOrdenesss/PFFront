@@ -52,7 +52,6 @@ function Administrador() {
     stock: "",
   });
 
-  // nuevas métricas desde localStorage
   const [comprasLocal, setComprasLocal] = useState({
     cantidad: 0,
     totalMonto: 0,
@@ -129,7 +128,6 @@ function Administrador() {
         .catch((err) => console.error("Error al traer actividades:", err));
     }
 
-    // leer compras guardadas en localStorage
     const comprasData = JSON.parse(localStorage.getItem("compras")) || {
       cantidad: 0,
       totalMonto: 0,
@@ -304,7 +302,6 @@ function Administrador() {
       className="container-fluid p-0 administrador-page"
       style={{ backgroundColor: "#F5F5F9", minHeight: "100vh" }}
     >
-      {/* NavbarProductos removed */}
 
       <div className="administrador-content">
         <div className="administrador-hero">
@@ -321,7 +318,6 @@ function Administrador() {
           </div>
         </div>
 
-        {/* Tarjetas de métricas */}
         <div className="metric-cards mb-4">
           <div className="metric-card metric-card-usuarios">
             <div>

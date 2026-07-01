@@ -38,7 +38,7 @@ function Configuracion() {
         >
           Volver a Home
         </button>
-        {/* Admin registration moved to Register page */}
+        
         <ModalMessage
           title="Configuración"
           message={message}

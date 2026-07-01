@@ -1,137 +1,320 @@
 .administrador-page {
-  background-color: #f5f5f9;
   min-height: 100vh;
+  background: linear-gradient(180deg, #f4f7ff 0%, #eef4ff 100%);
 }
 
 .administrador-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 32px 16px 64px;
+  max-width: 1450px;
+  margin: auto;
+  padding: 40px 24px 70px;
 }
 
+
+
 .administrador-hero {
-  margin-bottom: 32px;
+  margin-bottom: 35px;
 }
 
 .administrador-hero h2 {
-  font-size: clamp(2rem, 2.5vw, 2.6rem);
-  margin-bottom: 0.5rem;
+  font-size: clamp(2.2rem, 3vw, 2.8rem);
+  color: #243b6b;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
+
+.administrador-hero p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+
 
 .metric-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 22px;
+  margin-bottom: 35px;
 }
 
 .metric-card {
-  min-height: 150px;
+  min-height: 165px;
+  border-radius: 22px;
+  color: white;
+  padding: 28px 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
-  color: white;
-  padding: 24px 16px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+
+  transition: .35s;
 }
 
-.metric-card h6 {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  opacity: 0.85;
+.metric-card:hover{
+    transform: translateY(-8px);
+    box-shadow:0 22px 45px rgba(0,0,0,.18);
 }
 
-.metric-card h4 {
-  font-size: 2rem;
-  margin: 0;
+.metric-card h6{
+    margin-bottom:12px;
+    font-size:1rem;
+    opacity:.95;
+    font-weight:600;
 }
 
-.metric-card-usuarios {
-  background: linear-gradient(135deg, #6343ff, #7c5cff);
+.metric-card h4{
+    margin:0;
+    font-size:2.4rem;
+    font-weight:700;
 }
 
-.metric-card-activos {
-  background: linear-gradient(135deg, #25b5ff, #1d88d3);
+.metric-number{
+    font-size:2.4rem;
+    font-weight:700;
 }
 
-.metric-card-sinstock {
-  background: linear-gradient(135deg, #ff4eb8, #d62e9d);
+
+.metric-card-usuarios{
+background:linear-gradient(135deg,#4f46e5,#6366f1);
 }
 
-.metric-card-bajostock {
-  background: linear-gradient(135deg, #ffb52e, #f27024);
+.metric-card-activos{
+background:linear-gradient(135deg,#0ea5e9,#3b82f6);
 }
 
-.metric-card-vendidos {
-  background: linear-gradient(135deg, #1d7a0c, #10b981);
+.metric-card-sinstock{
+background:linear-gradient(135deg,#ec4899,#db2777);
 }
 
-.metric-card-ventas {
-  background: linear-gradient(135deg, #0f4c87, #2563eb);
+.metric-card-bajostock{
+background:linear-gradient(135deg,#f59e0b,#ea580c);
 }
 
-.metric-card-beneficios {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+.metric-card-vendidos{
+background:linear-gradient(135deg,#16a34a,#22c55e);
 }
 
-.metric-card-beneficios-activos {
-  background: linear-gradient(135deg, #10b981, #34d399);
+.metric-card-ventas{
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
 }
 
-.metric-card-actividades {
-  background: linear-gradient(135deg, #f97316, #fb923c);
+.metric-card-beneficios{
+background:linear-gradient(135deg,#3b82f6,#60a5fa);
 }
 
-.metric-card-actividades-proximas {
-  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+.metric-card-beneficios-activos{
+background:linear-gradient(135deg,#10b981,#34d399);
 }
 
-.table-wrapper {
-  background: white;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+.metric-card-actividades{
+background:linear-gradient(135deg,#f97316,#fb923c);
 }
 
-.table-wrapper h3 {
-  margin-bottom: 8px;
+.metric-card-actividades-proximas{
+background:linear-gradient(135deg,#8b5cf6,#a855f7);
 }
 
-.table-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 18px;
+
+.table-wrapper{
+
+background:white;
+
+padding:30px;
+
+border-radius:24px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+border:1px solid #edf2f7;
+
+margin-bottom:35px;
+
 }
 
-.filter-controls {
-  margin-bottom: 16px;
+.table-wrapper h3{
+
+color:#243b6b;
+
+font-weight:700;
+
+margin-bottom:18px;
+
 }
 
-.filter-controls .form-control {
-  max-width: 320px;
-  border-radius: 999px;
-  border: 1px solid #e5e7eb;
-  padding: 10px 16px;
+.table{
+
+margin-bottom:0;
+
 }
 
-.metric-number {
-  font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+.table thead{
+
+background:#eef4ff;
+
 }
 
-@media (max-width: 768px) {
-  .metric-card {
-    min-height: 140px;
-    padding: 18px 12px;
-  }
+.table thead th{
 
-  .table-wrapper {
-    padding: 18px;
-  }
+border:none;
 
-  .filter-controls .form-control {
-    max-width: 100%;
-  }
+color:#243b6b;
+
+font-weight:700;
+
+padding:16px;
+
+}
+
+.table tbody td{
+
+vertical-align:middle;
+
+padding:16px;
+
+}
+
+.table tbody tr{
+
+transition:.25s;
+
+}
+
+.table tbody tr:hover{
+
+background:#f7f9ff;
+
+}
+
+
+
+.btn{
+
+border-radius:12px;
+
+font-weight:600;
+
+padding:10px 18px;
+
+transition:.30s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+background:linear-gradient(135deg,#3f51b5,#5b6ee1);
+
+border:none;
+
+}
+
+.btn-success{
+
+background:linear-gradient(135deg,#16a34a,#22c55e);
+
+border:none;
+
+}
+
+.btn-warning{
+
+border:none;
+
+color:white;
+
+background:linear-gradient(135deg,#f59e0b,#ea580c);
+
+}
+
+.btn-danger{
+
+border:none;
+
+background:linear-gradient(135deg,#dc2626,#ef4444);
+
+}
+
+
+
+.filter-controls{
+
+margin-bottom:20px;
+
+}
+
+.filter-controls .form-control{
+
+max-width:340px;
+
+border-radius:30px;
+
+padding:12px 18px;
+
+border:1px solid #dbe4f0;
+
+box-shadow:none;
+
+transition:.30s;
+
+}
+
+.filter-controls .form-control:focus{
+
+border-color:#3f51b5;
+
+box-shadow:0 0 0 .2rem rgba(63,81,181,.15);
+
+}
+
+
+@media(max-width:992px){
+
+.metric-cards{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.administrador-content{
+
+padding:25px 15px 50px;
+
+}
+
+.metric-cards{
+
+grid-template-columns:1fr;
+
+}
+
+.metric-card{
+
+min-height:140px;
+
+}
+
+.table-wrapper{
+
+padding:20px;
+
+overflow-x:auto;
+
+}
+
+.filter-controls .form-control{
+
+max-width:100%;
+
+}
+
 }

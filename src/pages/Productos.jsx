@@ -210,8 +210,16 @@ function Productos() {
           <div className="productos-grid">
             {productosFiltrados.map((p) => (
               <div key={p.id} className="producto-card">
-                <div className="producto-imagen">📦</div>
-
+<div className="producto-imagen">
+  <img
+    src={p.imagen || "/productos/sin-imagen.png"}
+    alt={p.nombre}
+    className="producto-img"
+    onError={(e) => {
+      e.target.src = "/productos/sin-imagen.png";
+    }}
+  />
+</div>
                 <div className="producto-info">
                   <span className="producto-categoria">Producto Adaptado</span>
 

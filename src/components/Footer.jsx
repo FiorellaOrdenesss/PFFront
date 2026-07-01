@@ -11,6 +11,7 @@ import {
   FaShoppingBag,
 } from "react-icons/fa";
 import "./Footer.css";
+import logo from "../assets/logo-inclusivo.png"; // Cambia la ruta si corresponde
 
 function Footer() {
   const links = [
@@ -26,16 +27,21 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-content">
+
         <div className="footer-section footer-brand">
+          <img src={logo} alt="Inclusivo+" className="footer-logo" />
+
           <h3>Inclusivo+</h3>
+
           <p>
-            Plataforma accesible que acompaña la inclusión, la autonomía y la
-            participación activa de cada persona.
+            Promoviendo la inclusión, la autonomía y la accesibilidad para
+            todas las personas.
           </p>
         </div>
 
         <div className="footer-section">
-          <h4>Explora</h4>
+          <h4>Navegación</h4>
+
           <ul>
             {links.map((link) => (
               <li key={link.to}>
@@ -50,33 +56,41 @@ function Footer() {
 
         <div className="footer-section">
           <h4>Contacto</h4>
+
           <ul>
             <li>
               <a
-                href="https://www.instagram.com/inlusivoplus"
+                href="https://www.instagram.com/inlusivoplus/"
                 target="_blank"
                 rel="noreferrer"
               >
                 <FaInstagram />
-                <span>Instagram</span>
+                <span>@inclusivoplus</span>
               </a>
             </li>
+
             <li>
-              <a href="mailto:Inclusivoplus@gmail.com">
+              <a href="mailto:inclusivoplus@gmail.com">
                 <FaEnvelope />
-                <span>Gmail</span>
+                <span>inclusivoplus@gmail.com</span>
               </a>
             </li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h4>Sobre nosotros</h4>
+          <h4>Nuestro compromiso</h4>
+
           <p>
-            Inclusivo+ nace para acercar recursos, actividades y beneficios a
-            personas que buscan una experiencia más cómoda, útil y acompañada.
+            Trabajamos para ofrecer información, productos y recursos
+            accesibles que mejoren la calidad de vida y fomenten una sociedad
+            más inclusiva.
           </p>
         </div>
+      </div>
+
+      <div className="footer-bottom">
+        © {new Date().getFullYear()} Inclusivo+ | Todos los derechos reservados.
       </div>
     </footer>
   );

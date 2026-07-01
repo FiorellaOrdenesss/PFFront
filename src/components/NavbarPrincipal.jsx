@@ -50,7 +50,6 @@ function NavbarPrincipal() {
     setReading(true);
   }
 
-  // close when clicking outside
   useEffect(() => {
     function onDoc(e) {
       if (!e.target.closest) return;
@@ -195,7 +194,7 @@ function NavbarPrincipal() {
                 </div>
               </div>
 
-              {/* Links removed from accessibility menu - kept in main navbar */}
+              
             </div>
           )}
         </div>

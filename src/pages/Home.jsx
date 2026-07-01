@@ -49,6 +49,37 @@ function Home() {
   const [selectedActividad, setSelectedActividad] = useState(null);
   const [activeSection, setActiveSection] = useState(null);
 
+const recursos = [
+  {
+    id: 1,
+    nombre: "Guías de Accesibilidad",
+    link: "/recursos",
+  },
+  {
+    id: 2,
+    nombre: "Documentos PDF",
+    link: "/recursos",
+  },
+  {
+    id: 3,
+    nombre: "Videos Educativos",
+    link: "/recursos",
+  },
+  {
+    id: 4,
+    nombre: "Enlaces de Interés",
+    link: "/recursos",
+  },
+
+  
+];
+
+const turnos = [
+  { id: 1, nombre: "Consulta Médica" },
+  { id: 2, nombre: "Evaluación Psicológica" },
+  { id: 3, nombre: "Fisioterapia" },
+];
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -128,7 +159,6 @@ function Home() {
           <p>Inclusión para todos</p>
         </div>
 
-        {/* MENÚ */}
         <nav className="menu">
           <NavLink to="/">
             <FaHome className="menu-icon" />
@@ -181,7 +211,6 @@ function Home() {
           </NavLink>
         </nav>
 
-        {/* ACCESIBILIDAD */}
         <div className="accesibilidad">
           <h3>Opciones de accesibilidad</h3>
 
@@ -236,7 +265,6 @@ function Home() {
         </div>
       </aside>
 
-      {/* CONTENIDO */}
       <main className="contenido">
         <div className="header">
           <div>
@@ -252,7 +280,6 @@ function Home() {
 
         <UserBanner />
 
-        {/* TARJETAS */}
         <div className="cards">
           <div
             className={`card clickable ${activeSection === "beneficios" ? "active" : ""}`}
@@ -274,17 +301,28 @@ function Home() {
                 : "Actividades próximas"}
             </p>
           </div>
-          <div className="card">
-            <h2>...</h2>
-            <p>Recursos disponibles</p>
-          </div>
-          <div className="card">
-            <h2>...</h2>
-            <p>Turnos pendientes</p>
-          </div>
+          <div
+  className={`card clickable ${
+    activeSection === "recursos" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("recursos")}
+>
+  <h2>{recursos.length}</h2>
+  <p>Recursos disponibles</p>
+</div>
+          <div
+  className={`card clickable ${
+    activeSection === "turnos" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("turnos")}
+>
+  <h2>{turnos.length}</h2>
+  <p>Turnos pendientes</p>
+  
+</div>
+
         </div>
 
-        {/* VISTA SECCION */}
         {activeSection === null && (
           <div className="section section-featured">
             <h2>Selecciona una tarjeta</h2>
@@ -350,15 +388,59 @@ function Home() {
             )}
           </div>
         )}
-        <ModalDetalle
-          item={selectedBeneficio}
-          onClose={() => setSelectedBeneficio(null)}
-        />
-        <ModalDetalle
-          item={selectedActividad}
-          onClose={() => setSelectedActividad(null)}
-        />
-        <Footer />
+        {activeSection === "recursos" && (
+  <div className="section">
+    <div className="section-header">
+      <div>
+        <h2>Recursos Disponibles</h2>
+        <p>Haz clic en un recurso para abrirlo.</p>
+      </div>
+    </div>
+
+    {recursos.map((r) => (
+      <div
+        key={r.id}
+        className="actividad clickable"
+        onClick={() => (window.location.href = r.link)}
+      >
+        <span>{r.nombre}</span>
+      </div>
+    ))}
+
+    
+  </div>
+)}{activeSection === "turnos" && (
+  <div className="section">
+    <div className="section-header">
+      <div>
+        <h2>Turnos Pendientes</h2>
+        <p>Haz clic en un turno para abrir la página.</p>
+      </div>
+    </div>
+
+    {turnos.map((t) => (
+      <div
+        key={t.id}
+        className="actividad clickable"
+        onClick={() => (window.location.href = "/turnos")}
+      >
+        <span>{t.nombre}</span>
+      </div>
+    ))}
+  </div>
+)}
+
+<ModalDetalle
+  item={selectedBeneficio}
+  onClose={() => setSelectedBeneficio(null)}
+/>
+
+<ModalDetalle
+  item={selectedActividad}
+  onClose={() => setSelectedActividad(null)}
+/>
+
+<Footer />
       </main>
     </div>
   );
